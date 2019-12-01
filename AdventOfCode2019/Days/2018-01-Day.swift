@@ -12,7 +12,7 @@ import Foundation
 https://adventofcode.com/2018/day/1
 */
 
-enum Day01 {
+enum Day012018 {
     static func solve() {
         let input = Input.get("2018-01-Input.txt")
         print("Result 2018 Day 1 - Part One: \(countFrequency(input: input))")
