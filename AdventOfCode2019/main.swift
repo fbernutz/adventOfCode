@@ -8,4 +8,5 @@
 
 import Foundation
 
+//Day01.solve()
 Day02.solve()

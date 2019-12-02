@@ -12,7 +12,6 @@ enum Input {
     static func get(_ fileName: String) -> String {
         let url = URL(fileURLWithPath: #file)
         .deletingLastPathComponent()
-        .appendingPathComponent("Days")
         .appendingPathComponent(fileName)
 
         guard let content = try? String(contentsOf: url) else {

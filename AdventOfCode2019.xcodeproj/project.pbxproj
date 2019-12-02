@@ -68,24 +68,16 @@
 		3F6A0F1C23929DD300F734B9 /* AdventOfCode2019 */ = {
 			isa = PBXGroup;
 			children = (
-				3F6A0F272392A25E00F734B9 /* Input.swift */,
-				3F6A0F1D23929DD300F734B9 /* main.swift */,
-				3F6A0F292392A2E100F734B9 /* Days */,
-			);
-			path = AdventOfCode2019;
-			sourceTree = "<group>";
-		};
-		3F6A0F292392A2E100F734B9 /* Days */ = {
-			isa = PBXGroup;
-			children = (
 				3F660B262393A0B3003DB18E /* 01-Day.swift */,
 				3F660B282393A0C5003DB18E /* 01-Input.txt */,
 				3F07B1242394EAC300123D12 /* 02-Day.swift */,
 				3F07B1262394EACF00123D12 /* 02-Input.txt */,
 				3F6A0F2523929EA800F734B9 /* 2018-01-Day.swift */,
 				3F6A0F2B2392A56200F734B9 /* 2018-01-Input.txt */,
+				3F6A0F272392A25E00F734B9 /* Input.swift */,
+				3F6A0F1D23929DD300F734B9 /* main.swift */,
 			);
-			path = Days;
+			path = AdventOfCode2019;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
