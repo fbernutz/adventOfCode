@@ -9,7 +9,7 @@
 import Foundation
 
 /**
-https://adventofcode.com/2018/day/1
+https://adventofcode.com/2019/day/1
 */
 
 enum Day01 {

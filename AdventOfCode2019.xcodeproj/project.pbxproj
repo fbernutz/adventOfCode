@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F07B1252394EAC300123D12 /* 02-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F07B1242394EAC300123D12 /* 02-Day.swift */; };
 		3F660B272393A0B3003DB18E /* 01-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F660B262393A0B3003DB18E /* 01-Day.swift */; };
 		3F6A0F1E23929DD300F734B9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A0F1D23929DD300F734B9 /* main.swift */; };
 		3F6A0F2623929EA800F734B9 /* 2018-01-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A0F2523929EA800F734B9 /* 2018-01-Day.swift */; };
@@ -26,6 +27,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3F07B1242394EAC300123D12 /* 02-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "02-Day.swift"; sourceTree = "<group>"; };
+		3F07B1262394EACF00123D12 /* 02-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "02-Input.txt"; sourceTree = "<group>"; };
 		3F660B262393A0B3003DB18E /* 01-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "01-Day.swift"; sourceTree = "<group>"; };
 		3F660B282393A0C5003DB18E /* 01-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "01-Input.txt"; sourceTree = "<group>"; };
 		3F6A0F1A23929DD300F734B9 /* AdventOfCode2019 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AdventOfCode2019; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,6 +80,8 @@
 			children = (
 				3F660B262393A0B3003DB18E /* 01-Day.swift */,
 				3F660B282393A0C5003DB18E /* 01-Input.txt */,
+				3F07B1242394EAC300123D12 /* 02-Day.swift */,
+				3F07B1262394EACF00123D12 /* 02-Input.txt */,
 				3F6A0F2523929EA800F734B9 /* 2018-01-Day.swift */,
 				3F6A0F2B2392A56200F734B9 /* 2018-01-Input.txt */,
 			);
@@ -143,6 +148,7 @@
 			files = (
 				3F6A0F282392A25E00F734B9 /* Input.swift in Sources */,
 				3F6A0F1E23929DD300F734B9 /* main.swift in Sources */,
+				3F07B1252394EAC300123D12 /* 02-Day.swift in Sources */,
 				3F6A0F2623929EA800F734B9 /* 2018-01-Day.swift in Sources */,
 				3F660B272393A0B3003DB18E /* 01-Day.swift in Sources */,
 			);
