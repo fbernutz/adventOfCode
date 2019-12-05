@@ -15,6 +15,7 @@
 		3F6A0F2623929EA800F734B9 /* 2018-01-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A0F2523929EA800F734B9 /* 2018-01-Day.swift */; };
 		3F6A0F282392A25E00F734B9 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A0F272392A25E00F734B9 /* Input.swift */; };
 		3F84925C2398D46200521F97 /* 05-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F84925B2398D46200521F97 /* 05-Day.swift */; };
+		3F860E6E2399B4A60080576B /* 06-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F860E6D2399B4A60080576B /* 06-Day.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,6 +46,8 @@
 		3F6A0F2B2392A56200F734B9 /* 2018-01-Input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2018-01-Input.txt"; sourceTree = "<group>"; };
 		3F84925A2398D46200521F97 /* 05-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "05-Input.txt"; sourceTree = "<group>"; };
 		3F84925B2398D46200521F97 /* 05-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "05-Day.swift"; sourceTree = "<group>"; };
+		3F860E6C2399B4A60080576B /* 06-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "06-Input.txt"; sourceTree = "<group>"; };
+		3F860E6D2399B4A60080576B /* 06-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "06-Day.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +90,8 @@
 				3F1C172523970D990033C4D4 /* 04-Input.txt */,
 				3F84925B2398D46200521F97 /* 05-Day.swift */,
 				3F84925A2398D46200521F97 /* 05-Input.txt */,
+				3F860E6D2399B4A60080576B /* 06-Day.swift */,
+				3F860E6C2399B4A60080576B /* 06-Input.txt */,
 				3F6A0F2523929EA800F734B9 /* 2018-01-Day.swift */,
 				3F6A0F2B2392A56200F734B9 /* 2018-01-Input.txt */,
 				3F6A0F272392A25E00F734B9 /* Input.swift */,
@@ -159,6 +164,7 @@
 				3F1C172623970D990033C4D4 /* 04-Day.swift in Sources */,
 				3F6A0F2623929EA800F734B9 /* 2018-01-Day.swift in Sources */,
 				3F194A192396325700D1A1A3 /* 03-Day.swift in Sources */,
+				3F860E6E2399B4A60080576B /* 06-Day.swift in Sources */,
 				3F84925C2398D46200521F97 /* 05-Day.swift in Sources */,
 				3F660B272393A0B3003DB18E /* 01-Day.swift in Sources */,
 			);
