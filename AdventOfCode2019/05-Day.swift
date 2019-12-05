@@ -92,8 +92,7 @@ enum Day05 {
             case let optCode where optCode.starts(with: "3"):
                 // save input
 
-                let firstInputIndex = numbers[index + 1]
-                let outputIndex = mode[0] == 0 ? numbers[firstInputIndex] : firstInputIndex
+                let outputIndex = numbers[index + 1]
                 numbers[outputIndex] = input
 
                 index += 2
