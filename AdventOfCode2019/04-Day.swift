@@ -40,7 +40,8 @@ enum Day04 {
     }
 
 }
-extension String {
+
+private extension String {
     var isValidPasswordForPart1: Bool {
         count == 6
         && containsMinimumTwoEqualLetters
