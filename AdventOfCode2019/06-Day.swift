@@ -23,29 +23,25 @@ private struct OrbitConstellation {
     }
 
     func countConnections(for constellations: [OrbitConstellation]) -> Int {
-        var count = 1
-        var constellation = findConstellation(for: center, in: constellations)
-        while true {
-            guard constellation != nil else { break }
-            constellation = findConstellation(for: constellation!.center, in: constellations)
-            count += 1
-        }
-        return count
-    }
-
-    func findConstellation(for center: String, in constellations: [OrbitConstellation]) -> OrbitConstellation? {
-        return constellations.filter { $0.orbit == center }.first
+        return makeChain(with: [center], from: constellations).count
     }
 
     func makeChain(with constellations: [OrbitConstellation]) -> [String] {
+        return makeChain(with: [center, orbit], from: constellations)
+    }
+
+    private func makeChain(with input: [String], from constellations: [OrbitConstellation]) -> [String] {
         var constellation = findConstellation(for: center, in: constellations)
-        var array: [String] = [orbit, center]
-        while true {
-            guard constellation != nil else { break }
+        var array = input
+        while constellation != nil {
             array.append(constellation!.center)
             constellation = findConstellation(for: constellation!.center, in: constellations)
         }
-        return array.compactMap { $0 }
+        return array
+    }
+
+    private func findConstellation(for center: String, in constellations: [OrbitConstellation]) -> OrbitConstellation? {
+        return constellations.first { $0.orbit == center }
     }
 
 }
@@ -53,8 +49,10 @@ private struct OrbitConstellation {
 enum Day06 {
     static func solve() {
         let input = Input.get("06-Input.txt")
-//        print("Result Day 6 - Part One: \(countOrbitChecksums(input: input))")
-        print("Result Day 6 - Part Two: \(countMinimumTransfersToSanta(input: input))")
+        print(Date())
+        print("Result Day 6 - Part One: \(countOrbitChecksums(input: input))")
+//        print("Result Day 6 - Part Two: \(countMinimumTransfersToSanta(input: input))")
+        print(Date())
     }
 
     private static func countOrbitChecksums(input: String) -> String {
@@ -63,13 +61,9 @@ enum Day06 {
             .filter { !$0.isEmpty }
             .map(OrbitConstellation.init)
 
-        var count = 0
-        for constellation in constellations {
-            let connections = constellation.countConnections(for: constellations)
-//            print("\(constellation.center): \(connections)")
-            count += connections
-        }
-
+        let count = constellations
+            .map { $0.countConnections(for: constellations) }
+            .reduce(0,+)
         return String(count)
     }
 
@@ -79,28 +73,20 @@ enum Day06 {
             .filter { !$0.isEmpty }
             .map(OrbitConstellation.init)
 
-        // Make chain from YOU and SAN
         let chainYou = constellations
-            .filter { $0.orbit == "YOU" }
-            .first!
+            .first { $0.orbit == "YOU" }!
             .makeChain(with: constellations)
         let chainSanta = constellations
-            .filter { $0.orbit == "SAN" }
-            .first!
+            .first { $0.orbit == "SAN" }!
             .makeChain(with: constellations)
 
-        // find intersection
-        let intersection = chainYou.filter { chainSanta.contains($0) }.first!
+        let intersection = chainYou.first { chainSanta.contains($0) }!
 
-        // count from YOU to intersection, exclusive YOU
+        // count from YOU and SAN to intersection, exclusive YOU and SAN
         let stepsToIntersectionFromYou = Int(chainYou.firstIndex(of: intersection)!) - 1
-        // count from SAN to intersection, exclusive SAN
         let stepsToIntersectionFromSanta = Int(chainSanta.firstIndex(of: intersection)!) - 1
 
-        // sum
-        let steps = stepsToIntersectionFromYou + stepsToIntersectionFromSanta
-
-        return String(steps)
+        return String(stepsToIntersectionFromYou + stepsToIntersectionFromSanta)
     }
 
 }
