@@ -37,13 +37,24 @@ private struct OrbitConstellation {
         return constellations.filter { $0.orbit == center }.first
     }
 
+    func makeChain(with constellations: [OrbitConstellation]) -> [String] {
+        var constellation = findConstellation(for: center, in: constellations)
+        var array: [String] = [orbit, center]
+        while true {
+            guard constellation != nil else { break }
+            array.append(constellation!.center)
+            constellation = findConstellation(for: constellation!.center, in: constellations)
+        }
+        return array.compactMap { $0 }
+    }
+
 }
 
 enum Day06 {
     static func solve() {
         let input = Input.get("06-Input.txt")
-        print("Result Day 6 - Part One: \(countOrbitChecksums(input: input))")
-//        print("Result Day 6 - Part Two: \(findValidPasswordsForPart2(input: input))")
+//        print("Result Day 6 - Part One: \(countOrbitChecksums(input: input))")
+        print("Result Day 6 - Part Two: \(countMinimumTransfersToSanta(input: input))")
     }
 
     private static func countOrbitChecksums(input: String) -> String {
@@ -60,6 +71,36 @@ enum Day06 {
         }
 
         return String(count)
+    }
+
+    private static func countMinimumTransfersToSanta(input: String) -> String {
+        let constellations = input
+            .components(separatedBy: .newlines)
+            .filter { !$0.isEmpty }
+            .map(OrbitConstellation.init)
+
+        // Make chain from YOU and SAN
+        let chainYou = constellations
+            .filter { $0.orbit == "YOU" }
+            .first!
+            .makeChain(with: constellations)
+        let chainSanta = constellations
+            .filter { $0.orbit == "SAN" }
+            .first!
+            .makeChain(with: constellations)
+
+        // find intersection
+        let intersection = chainYou.filter { chainSanta.contains($0) }.first!
+
+        // count from YOU to intersection, exclusive YOU
+        let stepsToIntersectionFromYou = Int(chainYou.firstIndex(of: intersection)!) - 1
+        // count from SAN to intersection, exclusive SAN
+        let stepsToIntersectionFromSanta = Int(chainSanta.firstIndex(of: intersection)!) - 1
+
+        // sum
+        let steps = stepsToIntersectionFromYou + stepsToIntersectionFromSanta
+
+        return String(steps)
     }
 
 }
