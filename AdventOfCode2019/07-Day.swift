@@ -179,50 +179,37 @@ enum Day07 {
             .compactMap { Int($0) }
 
         var possibleOutputs: Set<Int> = []
-        for initialPhaseSettings in permutations([0, 1, 2, 3, 4]) {
-            print("--------- Next permutation ---------")
-            for feedbackPhaseSettings in permutations([5, 6, 7, 8, 9]) {
-                print("--------- Next permutation Feedback Loop ---------")
+        for feedbackPhaseSettings in permutations([5, 6, 7, 8, 9]) {
+            print("--------- Next permutation Feedback Loop ---------")
 
-                let amplifiers = [
-                    Amp(name: "A",
-                        memory: originalInputAsNumbers),
-                    Amp(name: "B",
-                        memory: originalInputAsNumbers),
-                    Amp(name: "C",
-                        memory: originalInputAsNumbers),
-                    Amp(name: "D",
-                        memory: originalInputAsNumbers),
-                    Amp(name: "E",
-                        memory: originalInputAsNumbers)
-                ]
+            let amplifiers = [
+                Amp(name: "A",
+                    memory: originalInputAsNumbers),
+                Amp(name: "B",
+                    memory: originalInputAsNumbers),
+                Amp(name: "C",
+                    memory: originalInputAsNumbers),
+                Amp(name: "D",
+                    memory: originalInputAsNumbers),
+                Amp(name: "E",
+                    memory: originalInputAsNumbers)
+            ]
 
-                print("Prepare Phase Settings")
-                for (index, amplifier) in amplifiers.enumerated() {
-                    amplifier.phaseSetting = initialPhaseSettings[index]
-                }
+            print("Prepare Feedback Loop Phase Settings")
+            for (index, amplifier) in amplifiers.enumerated() {
+                amplifier.phaseSetting = feedbackPhaseSettings[index]
+            }
 
-                var currentOutput = 0
+            print("Run Feedback Loop")
+            var currentOutput = 0
+            repeat {
                 for amplifier in amplifiers {
                     currentOutput = amplifier.runProgramm(input: currentOutput)!
                 }
-
-                print("Prepare Feedback Loop Phase Settings")
-                for (index, amplifier) in amplifiers.enumerated() {
-                    amplifier.phaseSetting = feedbackPhaseSettings[index]
-                }
-
-                print("Run Feedback Loop")
-                repeat {
-                    for amplifier in amplifiers {
-                        currentOutput = amplifier.runProgramm(input: currentOutput)!
-                    }
-                } while amplifiers.last!.hit99 == false
-                possibleOutputs.insert(currentOutput)
-            }
+            } while amplifiers.last!.hit99 == false
+            possibleOutputs.insert(currentOutput)
         }
 
         return String(possibleOutputs.max()!)
     }
-
 }
