@@ -26,7 +26,7 @@ private struct Layer {
         self.width = width
     }
 
-    var output: String {
+    var formattedOutput: String {
         var output = String(content.flatMap { String($0) })
         for index in 0..<content.count / width {
             let index = String.Index(utf16Offset: index * (width + 1), in: output)
@@ -34,89 +34,61 @@ private struct Layer {
         }
         output = output.replacingOccurrences(of: "0", with: "◾️")
         output = output.replacingOccurrences(of: "1", with: "⬜️")
+        output = output.replacingOccurrences(of: "2", with: "🧊")
         return output
-    }
-}
-
-extension Layer: Comparable {
-    static func < (lhs: Layer, rhs: Layer) -> Bool {
-        lhs.content.filter { $0 == 0 }.count
-            < rhs.content.filter { $0 == 0 }.count
     }
 }
 
 enum Day08 {
     static let width = 25
     static let height = 6
+    static var numberOfPixels: Int {
+        width * height
+    }
 
     static func solve() {
         let input = Input.get("08-Input.txt")
-        print("Result Day 8 - Part One: \(parseImageData(input: input))")
-        print("Result Day 8 - Part Two: \(printImageData(input: input))")
+        print("Result Day 8 - Part One: \(parseImageDataForPart1(input: input))")
+        print("Result Day 8 - Part Two: \(printImageDataForPart2(input: input))")
     }
 
-    private static func parseImageData(input: String) -> String {
-        var input = input
+    private static func parseImageDataForPart1(input: String) -> String {
+        let layers = parseImageData(input)
 
-        let numberOfPixels = width * height
-
-        let lowerBound = String.Index(utf16Offset: 0, in: input)
-        let upperBound = String.Index(utf16Offset: numberOfPixels, in: input)
-
-        // format input
-        var formattedInput: [String] = []
-        for _ in 0..<input.count / numberOfPixels {
-            let line = String(input[lowerBound..<upperBound])
-            formattedInput.append(line)
-            input = String(input.dropFirst(numberOfPixels))
-        }
-
-        let layers = formattedInput.map { Layer(with: $0, width: width) }
-
-        let layerWithFewestZeroDigits = layers.sorted(by: <).first!
-        let result = layerWithFewestZeroDigits.content.filter { $0 == 1 }.count * layerWithFewestZeroDigits.content.filter { $0 == 2 }.count
-        return String(result)
+        let layerWithFewestZeroDigits = layers.min {
+            $0.content.filter { $0 == 0 }.count < $1.content.filter { $0 == 0 }.count
+        }!
+        let numberOfOneDigit = layerWithFewestZeroDigits.content.filter { $0 == 1 }.count
+        let numberOfTwoDigit = layerWithFewestZeroDigits.content.filter { $0 == 2 }.count
+        return String(numberOfOneDigit * numberOfTwoDigit)
     }
 
-    /**
-     0 is black, 1 is white, and 2 is transparent.
-     */
-    private static func printImageData(input: String) -> String {
-        var input = input
+    private static func printImageDataForPart2(input: String) -> String {
+        let layers = parseImageData(input)
 
-        let numberOfPixels = width*height
-
-        let lowerBound = String.Index(utf16Offset: 0, in: input)
-        let upperBound = String.Index(utf16Offset: numberOfPixels, in: input)
-
-        // format input
-        var formattedInput: [String] = []
-        for _ in 0..<input.count / numberOfPixels {
-            let line = String(input[lowerBound..<upperBound])
-            formattedInput.append(line)
-            input = String(input.dropFirst(numberOfPixels))
-        }
-
-        let layers = formattedInput.map { Layer(with: $0, width: width) }
-
-        // determine image with all layers
         var newContent: [Int] = []
         for pixelIndex in 0..<numberOfPixels {
             let pixels = layers.map { $0.content[pixelIndex] }
-            let outputPixel = determinePixel(for: pixels)
+            let outputPixel = pixels.first { $0 != 2 } ?? 2
             newContent.append(outputPixel)
         }
-        return Layer(with: newContent, width: width).output
+        return Layer(with: newContent, width: width).formattedOutput
     }
 
-    private static func determinePixel(for pixelPerLayer: [Int]) -> Int {
-        // 0,1,2,0 -> 0
-        // 2,1,2,0 -> 1
-        // 2,2,1,0 -> 1
-        // 2,2,2,0 -> 0
+    private static func parseImageData(_ input: String) -> [Layer] {
+        var input = input
 
-        var pixels = pixelPerLayer
-        pixels.removeAll { $0 == 2 }
-        return pixels.first ?? 2
+        let lowerBound = String.Index(utf16Offset: 0, in: input)
+        let upperBound = String.Index(utf16Offset: numberOfPixels, in: input)
+
+        var formattedInput: [String] = []
+        for _ in 0..<input.count / numberOfPixels {
+            let line = String(input[lowerBound..<upperBound])
+            formattedInput.append(line)
+            input = String(input.dropFirst(numberOfPixels))
+        }
+
+        let layers = formattedInput.map { Layer(with: $0, width: width) }
+        return layers
     }
 }
