@@ -56,13 +56,13 @@ class Computer {
                 .map { ParameterMode(rawValue: $0)! }
             // CBA
 
-            let optCode = memory[index].description
+            let opcode = memory[index].description
                 .reversed()
                 .map { String($0) }
                 .joined()
 
-            switch optCode {
-            case let optCode where optCode.starts(with: "1"):
+            switch opcode {
+            case let opcode where opcode.starts(with: "1"):
                 // addition next to inputs and write in third output
 
                 let firstInputIndex = memory[index + 1]
@@ -73,7 +73,7 @@ class Computer {
                 memory[outputIndex] = first + second
 
                 index += 4
-            case let optCode where optCode.starts(with: "2"):
+            case let opcode where opcode.starts(with: "2"):
                 // multiply next two
 
                 let firstInputIndex = memory[index + 1]
@@ -84,7 +84,7 @@ class Computer {
                 memory[outputIndex] = first * second
 
                 index += 4
-            case let optCode where optCode.starts(with: "3"):
+            case let opcode where opcode.starts(with: "3"):
                 // save input
 
                 let outputIndex = memory[index + 1]
@@ -92,7 +92,7 @@ class Computer {
                 phaseSetting = nil
 
                 index += 2
-            case let optCode where optCode.starts(with: "4"):
+            case let opcode where opcode.starts(with: "4"):
                 // return output
 
                 let firstInputIndex = memory[index + 1]
@@ -102,7 +102,7 @@ class Computer {
                 currentOutput = output
                 index += 2
                 return output
-            case let optCode where optCode.starts(with: "5"):
+            case let opcode where opcode.starts(with: "5"):
                 // jump-if-true
                 let firstInputIndex = memory[index + 1]
                 let secondInputIndex = memory[index + 2]
@@ -113,7 +113,7 @@ class Computer {
                 } else {
                     index += 3
                 }
-            case let optCode where optCode.starts(with: "6"):
+            case let opcode where opcode.starts(with: "6"):
                 // jump-if-false
                 let firstInputIndex = memory[index + 1]
                 let secondInputIndex = memory[index + 2]
@@ -124,7 +124,7 @@ class Computer {
                 } else {
                     index += 3
                 }
-            case let optCode where optCode.starts(with: "7"):
+            case let opcode where opcode.starts(with: "7"):
                 // less than
                 let firstInputIndex = memory[index + 1]
                 let secondInputIndex = memory[index + 2]
@@ -139,7 +139,7 @@ class Computer {
                 }
 
                 index += 4
-            case let optCode where optCode.starts(with: "8"):
+            case let opcode where opcode.starts(with: "8"):
                 // equals
                 let firstInputIndex = memory[index + 1]
                 let secondInputIndex = memory[index + 2]
@@ -154,13 +154,13 @@ class Computer {
                 }
 
                 index += 4
-            case let optCode where optCode.starts(with: "9"):
+            case let opcode where opcode.starts(with: "9"):
                 // adjusts the relative base
                 let firstInputIndex = memory[index + 1]
                 relativeBaseOffset += firstInputIndex
 
                 index += 2
-            case let optCode where optCode.starts(with: "99"):
+            case let opcode where opcode.starts(with: "99"):
                 // halting programm
                 print("Halting Amp\(name) with output: \(currentOutput)")
                 hit99 = true

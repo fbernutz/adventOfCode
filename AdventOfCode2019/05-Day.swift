@@ -48,7 +48,7 @@ enum Day05 {
             // A: if empty -> 0, parameter mode
             // B: parameter mode
             // C: parameter mode
-            // DE: optcode, 02 etc.
+            // DE: opcode, 02 etc.
 
             var parameterModes = numbers[index].description
                 .reversed()
@@ -61,13 +61,13 @@ enum Day05 {
             let mode = parameterModes.compactMap { Int($0) }
             // CBA
 
-            let optCode = numbers[index].description
+            let opcode = numbers[index].description
                 .reversed()
                 .map { String($0) }
                 .joined()
 
-            switch optCode {
-            case let optCode where optCode.starts(with: "1"):
+            switch opcode {
+            case let opcode where opcode.starts(with: "1"):
                 // addition next to inputs and write in third output
 
                 let firstInputIndex = numbers[index + 1]
@@ -78,7 +78,7 @@ enum Day05 {
                 numbers[outputIndex] = first + second
 
                 index += 4
-            case let optCode where optCode.starts(with: "2"):
+            case let opcode where opcode.starts(with: "2"):
                 // multiply next two
 
                 let firstInputIndex = numbers[index + 1]
@@ -89,14 +89,14 @@ enum Day05 {
                 numbers[outputIndex] = first * second
 
                 index += 4
-            case let optCode where optCode.starts(with: "3"):
+            case let opcode where opcode.starts(with: "3"):
                 // save input
 
                 let outputIndex = numbers[index + 1]
                 numbers[outputIndex] = input
 
                 index += 2
-            case let optCode where optCode.starts(with: "4"):
+            case let opcode where opcode.starts(with: "4"):
                 // return output
 
                 let firstInputIndex = numbers[index + 1]
@@ -105,7 +105,7 @@ enum Day05 {
                 print("Output: \(output)")
 
                 index += 2
-            case let optCode where optCode.starts(with: "5"):
+            case let opcode where opcode.starts(with: "5"):
                 // jump-if-true
                 let firstInputIndex = numbers[index + 1]
                 let secondInputIndex = numbers[index + 2]
@@ -116,7 +116,7 @@ enum Day05 {
                 } else {
                     index += 3
                 }
-            case let optCode where optCode.starts(with: "6"):
+            case let opcode where opcode.starts(with: "6"):
                 // jump-if-false
                 let firstInputIndex = numbers[index + 1]
                 let secondInputIndex = numbers[index + 2]
@@ -127,7 +127,7 @@ enum Day05 {
                 } else {
                     index += 3
                 }
-            case let optCode where optCode.starts(with: "7"):
+            case let opcode where opcode.starts(with: "7"):
                 // less than
                 let firstInputIndex = numbers[index + 1]
                 let secondInputIndex = numbers[index + 2]
@@ -142,7 +142,7 @@ enum Day05 {
                 }
 
                 index += 4
-            case let optCode where optCode.starts(with: "8"):
+            case let opcode where opcode.starts(with: "8"):
                 // equals
                 let firstInputIndex = numbers[index + 1]
                 let secondInputIndex = numbers[index + 2]
@@ -157,7 +157,7 @@ enum Day05 {
                 }
 
                 index += 4
-            case let optCode where optCode.starts(with: "99"):
+            case let opcode where opcode.starts(with: "99"):
                 // halting programm
                 return currentOutput ?? 0
             default:
