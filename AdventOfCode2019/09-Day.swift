@@ -7,18 +7,18 @@ import Foundation
 enum Day09 {
     static func solve() {
         let input = Input.get("09-Input.txt")
-        print("Result Day 9 - Part One: \(intcodeProgram(input: input))")
-//        print("Result Day 9 - Part Two: \(printImageDataForPart2(input: input))")
+        print("Result Day 9 - Part One: \(intcodeProgram(input: input, with: 1))")
+        print("Result Day 9 - Part One: \(intcodeProgram(input: input, with: 2))")
     }
 
-    private static func intcodeProgram(input: String) -> String {
+    private static func intcodeProgram(input: String, with programmInput: Int) -> String {
         let originalInputAsNumbers = input.components(separatedBy: ",")
             .compactMap { Int($0) }
 
         let computer = Computer(
             name: "A",
             memory: originalInputAsNumbers)
-        let output = computer.runProgramm(input: 1)!
+        let output = computer.runProgramm(input: programmInput)!
 
         return String(output)
     }
