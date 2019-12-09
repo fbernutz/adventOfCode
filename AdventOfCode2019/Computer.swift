@@ -12,7 +12,7 @@ class Computer {
     var name: String
     var memory: [Int] = []
     var index: Int = 0
-    var relativeBaseOffset: Int = 0
+    var relativeBase: Int = 0
     var phaseSetting: Int?
     var hit99: Bool = false
 
@@ -26,14 +26,14 @@ class Computer {
         case immediate
         case relative
 
-        func value(for index: Int, memory: [Int], relativeBaseOffset: Int = 0) -> Int {
+        func value(for index: Int, memory: [Int], relativeBaseOffset: Int) -> Int {
             switch self {
             case .position:
                 return memory[index]
             case .immediate:
                 return index
             case .relative:
-                return memory[index + relativeBaseOffset]
+                return memory[relativeBaseOffset + index]
             }
         }
     }
@@ -54,7 +54,6 @@ class Computer {
             let mode = parameterModes
                 .compactMap { Int($0) }
                 .map { ParameterMode(rawValue: $0)! }
-            // CBA
 
             let opcode = memory[index].description
                 .reversed()
@@ -68,9 +67,10 @@ class Computer {
                 let firstInputIndex = memory[index + 1]
                 let secondInputIndex = memory[index + 2]
                 let outputIndex = memory[index + 3]
-                let first = mode[0].value(for: firstInputIndex, memory: memory)
-                let second = mode[1].value(for: secondInputIndex, memory: memory)
-                memory[outputIndex] = first + second
+                let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let second = mode[1].value(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let output = mode[2].value(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                memory[output] = first + second
 
                 index += 4
             case let opcode where opcode.starts(with: "2"):
@@ -79,16 +79,24 @@ class Computer {
                 let firstInputIndex = memory[index + 1]
                 let secondInputIndex = memory[index + 2]
                 let outputIndex = memory[index + 3]
-                let first = mode[0].value(for: firstInputIndex, memory: memory)
-                let second = mode[1].value(for: secondInputIndex, memory: memory)
-                memory[outputIndex] = first * second
+                let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let second = mode[1].value(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                if outputIndex + relativeBase > memory.count {
+                    memory.append(contentsOf: Array(repeating: 0, count: outputIndex + relativeBase - memory.count + 1))
+                }
+                let output = mode[2].value(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                memory[output] = first * second
 
                 index += 4
             case let opcode where opcode.starts(with: "3"):
                 // save input
 
                 let outputIndex = memory[index + 1]
-                memory[outputIndex] = phaseSetting ?? input
+                if outputIndex + relativeBase > memory.count {
+                    memory.append(contentsOf: Array(repeating: 0, count: outputIndex + relativeBase - memory.count + 1))
+                }
+                let output = mode[0].value(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                memory[output] = phaseSetting ?? input
                 phaseSetting = nil
 
                 index += 2
@@ -96,7 +104,7 @@ class Computer {
                 // return output
 
                 let firstInputIndex = memory[index + 1]
-                let output = mode[0].value(for: firstInputIndex, memory: memory)
+                let output = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
                 print("Returning Amp\(name) with output: \(output)")
 
                 currentOutput = output
@@ -106,8 +114,8 @@ class Computer {
                 // jump-if-true
                 let firstInputIndex = memory[index + 1]
                 let secondInputIndex = memory[index + 2]
-                let first = mode[0].value(for: firstInputIndex, memory: memory)
-                let second = mode[1].value(for: secondInputIndex, memory: memory)
+                let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let second = mode[1].value(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
                 if first != 0 {
                     index = second
                 } else {
@@ -117,8 +125,8 @@ class Computer {
                 // jump-if-false
                 let firstInputIndex = memory[index + 1]
                 let secondInputIndex = memory[index + 2]
-                let first = mode[0].value(for: firstInputIndex, memory: memory)
-                let second = mode[1].value(for: secondInputIndex, memory: memory)
+                let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let second = mode[1].value(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
                 if first == 0 {
                     index = second
                 } else {
@@ -129,13 +137,14 @@ class Computer {
                 let firstInputIndex = memory[index + 1]
                 let secondInputIndex = memory[index + 2]
                 let outputIndex = memory[index + 3]
-                let first = mode[0].value(for: firstInputIndex, memory: memory)
-                let second = mode[1].value(for: secondInputIndex, memory: memory)
+                let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let second = mode[1].value(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let output = mode[2].value(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
 
                 if first < second {
-                    memory[outputIndex] = 1
+                    memory[output] = 1
                 } else {
-                    memory[outputIndex] = 0
+                    memory[output] = 0
                 }
 
                 index += 4
@@ -144,27 +153,29 @@ class Computer {
                 let firstInputIndex = memory[index + 1]
                 let secondInputIndex = memory[index + 2]
                 let outputIndex = memory[index + 3]
-                let first = mode[0].value(for: firstInputIndex, memory: memory)
-                let second = mode[1].value(for: secondInputIndex, memory: memory)
+                let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let second = mode[1].value(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let output = mode[2].value(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
 
                 if first == second {
-                    memory[outputIndex] = 1
+                    memory[output] = 1
                 } else {
-                    memory[outputIndex] = 0
+                    memory[output] = 0
                 }
 
                 index += 4
-            case let opcode where opcode.starts(with: "9"):
-                // adjusts the relative base
-                let firstInputIndex = memory[index + 1]
-                relativeBaseOffset += firstInputIndex
-
-                index += 2
             case let opcode where opcode.starts(with: "99"):
                 // halting programm
                 print("Halting Amp\(name) with output: \(currentOutput)")
                 hit99 = true
                 return currentOutput
+            case let opcode where opcode.starts(with: "9"):
+                // adjusts the relative base
+                let firstInputIndex = memory[index + 1]
+                let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                relativeBase += first
+                
+                index += 2
             default:
                 fatalError("invalid input")
             }
