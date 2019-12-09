@@ -20,6 +20,20 @@ class Computer {
         self.memory = memory
     }
 
+    enum ParameterMode: Int {
+        case position
+        case immediate
+
+        func value(for index: Int, memory: [Int]) -> Int {
+            switch self {
+            case .position:
+                return memory[index]
+            case .immediate:
+                return index
+            }
+        }
+    }
+
     func runProgramm(input: Int) -> Int? {
         print("Running Amp\(name) with input: \(input)")
         var currentOutput = input
@@ -33,7 +47,9 @@ class Computer {
             while parameterModes.count <= 3 {
                 parameterModes.append("0")
             }
-            let mode = parameterModes.compactMap { Int($0) }
+            let mode = parameterModes
+                .compactMap { Int($0) }
+                .map { ParameterMode(rawValue: $0)! }
             // CBA
 
             let optCode = memory[index].description
@@ -48,8 +64,8 @@ class Computer {
                 let firstInputIndex = memory[index + 1]
                 let secondInputIndex = memory[index + 2]
                 let outputIndex = memory[index + 3]
-                let first = mode[0] == 0 ? memory[firstInputIndex] : firstInputIndex
-                let second = mode[1] == 0 ? memory[secondInputIndex] : secondInputIndex
+                let first = mode[0].value(for: firstInputIndex, memory: memory)
+                let second = mode[1].value(for: secondInputIndex, memory: memory)
                 memory[outputIndex] = first + second
 
                 index += 4
@@ -59,8 +75,8 @@ class Computer {
                 let firstInputIndex = memory[index + 1]
                 let secondInputIndex = memory[index + 2]
                 let outputIndex = memory[index + 3]
-                let first = mode[0] == 0 ? memory[firstInputIndex] : firstInputIndex
-                let second = mode[1] == 0 ? memory[secondInputIndex] : secondInputIndex
+                let first = mode[0].value(for: firstInputIndex, memory: memory)
+                let second = mode[1].value(for: secondInputIndex, memory: memory)
                 memory[outputIndex] = first * second
 
                 index += 4
@@ -76,7 +92,7 @@ class Computer {
                 // return output
 
                 let firstInputIndex = memory[index + 1]
-                let output = mode[0] == 0 ? memory[firstInputIndex] : firstInputIndex
+                let output = mode[0].value(for: firstInputIndex, memory: memory)
                 print("Returning Amp\(name) with output: \(output)")
 
                 currentOutput = output
@@ -86,8 +102,8 @@ class Computer {
                 // jump-if-true
                 let firstInputIndex = memory[index + 1]
                 let secondInputIndex = memory[index + 2]
-                let first = mode[0] == 0 ? memory[firstInputIndex] : firstInputIndex
-                let second = mode[1] == 0 ? memory[secondInputIndex] : secondInputIndex
+                let first = mode[0].value(for: firstInputIndex, memory: memory)
+                let second = mode[1].value(for: secondInputIndex, memory: memory)
                 if first != 0 {
                     index = second
                 } else {
@@ -97,8 +113,8 @@ class Computer {
                 // jump-if-false
                 let firstInputIndex = memory[index + 1]
                 let secondInputIndex = memory[index + 2]
-                let first = mode[0] == 0 ? memory[firstInputIndex] : firstInputIndex
-                let second = mode[1] == 0 ? memory[secondInputIndex] : secondInputIndex
+                let first = mode[0].value(for: firstInputIndex, memory: memory)
+                let second = mode[1].value(for: secondInputIndex, memory: memory)
                 if first == 0 {
                     index = second
                 } else {
@@ -109,8 +125,8 @@ class Computer {
                 let firstInputIndex = memory[index + 1]
                 let secondInputIndex = memory[index + 2]
                 let outputIndex = memory[index + 3]
-                let first = mode[0] == 0 ? memory[firstInputIndex] : firstInputIndex
-                let second = mode[1] == 0 ? memory[secondInputIndex] : secondInputIndex
+                let first = mode[0].value(for: firstInputIndex, memory: memory)
+                let second = mode[1].value(for: secondInputIndex, memory: memory)
 
                 if first < second {
                     memory[outputIndex] = 1
@@ -124,8 +140,8 @@ class Computer {
                 let firstInputIndex = memory[index + 1]
                 let secondInputIndex = memory[index + 2]
                 let outputIndex = memory[index + 3]
-                let first = mode[0] == 0 ? memory[firstInputIndex] : firstInputIndex
-                let second = mode[1] == 0 ? memory[secondInputIndex] : secondInputIndex
+                let first = mode[0].value(for: firstInputIndex, memory: memory)
+                let second = mode[1].value(for: secondInputIndex, memory: memory)
 
                 if first == second {
                     memory[outputIndex] = 1
