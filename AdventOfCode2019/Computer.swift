@@ -12,6 +12,7 @@ class Computer {
     var name: String
     var memory: [Int] = []
     var index: Int = 0
+    var relativeBaseOffset: Int = 0
     var phaseSetting: Int?
     var hit99: Bool = false
 
@@ -23,13 +24,16 @@ class Computer {
     enum ParameterMode: Int {
         case position
         case immediate
+        case relative
 
-        func value(for index: Int, memory: [Int]) -> Int {
+        func value(for index: Int, memory: [Int], relativeBaseOffset: Int = 0) -> Int {
             switch self {
             case .position:
                 return memory[index]
             case .immediate:
                 return index
+            case .relative:
+                return memory[index + relativeBaseOffset]
             }
         }
     }
@@ -150,6 +154,12 @@ class Computer {
                 }
 
                 index += 4
+            case let optCode where optCode.starts(with: "9"):
+                // adjusts the relative base
+                let firstInputIndex = memory[index + 1]
+                relativeBaseOffset += firstInputIndex
+
+                index += 2
             case let optCode where optCode.starts(with: "99"):
                 // halting programm
                 print("Halting Amp\(name) with output: \(currentOutput)")
