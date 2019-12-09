@@ -36,10 +36,20 @@ class Computer {
                 return memory[relativeBaseOffset + index]
             }
         }
+
+        func write(for index: Int, memory: [Int], relativeBaseOffset: Int) -> Int {
+            switch self {
+            case .position:
+                return index
+            case .relative,
+                 .immediate:
+                return relativeBaseOffset + index
+            }
+        }
     }
 
     func runProgramm(input: Int) -> Int? {
-        print("Running Amp\(name) with input: \(input)")
+//        print("Running Amp\(name) with input: \(input)")
         var currentOutput = input
 
         repeat {
@@ -69,7 +79,10 @@ class Computer {
                 let outputIndex = memory[index + 3]
                 let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
                 let second = mode[1].value(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                let output = mode[2].value(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let output = mode[2].write(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                if output + relativeBase > memory.count {
+                    memory.append(contentsOf: Array(repeating: 0, count: output + relativeBase - memory.count + 1))
+                }
                 memory[output] = first + second
 
                 index += 4
@@ -81,10 +94,10 @@ class Computer {
                 let outputIndex = memory[index + 3]
                 let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
                 let second = mode[1].value(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                if outputIndex + relativeBase > memory.count {
-                    memory.append(contentsOf: Array(repeating: 0, count: outputIndex + relativeBase - memory.count + 1))
+                let output = mode[2].write(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                if output + relativeBase > memory.count {
+                    memory.append(contentsOf: Array(repeating: 0, count: output + relativeBase - memory.count + 1))
                 }
-                let output = mode[2].value(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
                 memory[output] = first * second
 
                 index += 4
@@ -92,10 +105,10 @@ class Computer {
                 // save input
 
                 let outputIndex = memory[index + 1]
-                if outputIndex + relativeBase > memory.count {
-                    memory.append(contentsOf: Array(repeating: 0, count: outputIndex + relativeBase - memory.count + 1))
+                let output = mode[0].write(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                if output + relativeBase > memory.count {
+                    memory.append(contentsOf: Array(repeating: 0, count: output + relativeBase - memory.count + 1))
                 }
-                let output = mode[0].value(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
                 memory[output] = phaseSetting ?? input
                 phaseSetting = nil
 
@@ -105,7 +118,7 @@ class Computer {
 
                 let firstInputIndex = memory[index + 1]
                 let output = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                print("Returning Amp\(name) with output: \(output)")
+//                print("Returning Amp\(name) with output: \(output)")
 
                 currentOutput = output
                 index += 2
@@ -139,7 +152,10 @@ class Computer {
                 let outputIndex = memory[index + 3]
                 let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
                 let second = mode[1].value(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                let output = mode[2].value(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let output = mode[2].write(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                if output + relativeBase > memory.count {
+                    memory.append(contentsOf: Array(repeating: 0, count: output + relativeBase - memory.count + 1))
+                }
 
                 if first < second {
                     memory[output] = 1
@@ -155,7 +171,10 @@ class Computer {
                 let outputIndex = memory[index + 3]
                 let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
                 let second = mode[1].value(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                let output = mode[2].value(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let output = mode[2].write(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                if output + relativeBase > memory.count {
+                    memory.append(contentsOf: Array(repeating: 0, count: output + relativeBase - memory.count + 1))
+                }
 
                 if first == second {
                     memory[output] = 1
@@ -166,7 +185,7 @@ class Computer {
                 index += 4
             case let opcode where opcode.starts(with: "99"):
                 // halting programm
-                print("Halting Amp\(name) with output: \(currentOutput)")
+//                print("Halting Amp\(name) with output: \(currentOutput)")
                 hit99 = true
                 return currentOutput
             case let opcode where opcode.starts(with: "9"):
