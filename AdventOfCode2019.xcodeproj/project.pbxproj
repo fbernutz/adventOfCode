@@ -11,6 +11,7 @@
 		3F194A192396325700D1A1A3 /* 03-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F194A182396325700D1A1A3 /* 03-Day.swift */; };
 		3F1C172623970D990033C4D4 /* 04-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1C172423970D990033C4D4 /* 04-Day.swift */; };
 		3F5EEF1A239B0E720015404B /* 07-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5EEF19239B0E720015404B /* 07-Day.swift */; };
+		3F62495C239EF31A00812F8F /* 10-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F62495A239EF31A00812F8F /* 10-Day.swift */; };
 		3F660B272393A0B3003DB18E /* 01-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F660B262393A0B3003DB18E /* 01-Day.swift */; };
 		3F6A0F1E23929DD300F734B9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A0F1D23929DD300F734B9 /* main.swift */; };
 		3F6A0F2623929EA800F734B9 /* 2018-01-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A0F2523929EA800F734B9 /* 2018-01-Day.swift */; };
@@ -43,6 +44,8 @@
 		3F1C172523970D990033C4D4 /* 04-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "04-Input.txt"; sourceTree = "<group>"; };
 		3F5EEF18239B0E720015404B /* 07-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "07-Input.txt"; sourceTree = "<group>"; };
 		3F5EEF19239B0E720015404B /* 07-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "07-Day.swift"; sourceTree = "<group>"; };
+		3F62495A239EF31A00812F8F /* 10-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "10-Day.swift"; sourceTree = "<group>"; };
+		3F62495B239EF31A00812F8F /* 10-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "10-Input.txt"; sourceTree = "<group>"; };
 		3F660B262393A0B3003DB18E /* 01-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "01-Day.swift"; sourceTree = "<group>"; };
 		3F660B282393A0C5003DB18E /* 01-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "01-Input.txt"; sourceTree = "<group>"; };
 		3F6A0F1A23929DD300F734B9 /* AdventOfCode2019 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AdventOfCode2019; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +112,8 @@
 				3FCED5B6239C658F006EE248 /* 08-Input.txt */,
 				3F997952239D9ADC006DB96B /* 09-Day.swift */,
 				3F997951239D9ADC006DB96B /* 09-Input.txt */,
+				3F62495A239EF31A00812F8F /* 10-Day.swift */,
+				3F62495B239EF31A00812F8F /* 10-Input.txt */,
 				3F6A0F2523929EA800F734B9 /* 2018-01-Day.swift */,
 				3F6A0F2B2392A56200F734B9 /* 2018-01-Input.txt */,
 				3F997956239E20D0006DB96B /* Computer.swift */,
@@ -189,6 +194,7 @@
 				3F84925C2398D46200521F97 /* 05-Day.swift in Sources */,
 				3F997953239D9ADC006DB96B /* 09-Day.swift in Sources */,
 				3F660B272393A0B3003DB18E /* 01-Day.swift in Sources */,
+				3F62495C239EF31A00812F8F /* 10-Day.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
