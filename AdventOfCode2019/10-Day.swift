@@ -43,54 +43,34 @@ struct Asteroid: Hashable {
         return abs(deltaX + deltaY)
     }
 
-    // Steigung
-    private func slope(to point: Asteroid) -> Double {
-        let deltaY = Double(point.y - y)//3-2 = 1, 0-2 = -2
-        let deltaX = Double(point.x - x)//4-3 = 1, 1-3 = -2
+    // Degree
+    // from https://stackoverflow.com/a/28641720/6716961
+    private func angle(to point: Asteroid) -> CGFloat {
+        let v1 = CGVector(dx: x, dy: y)
+        let v2 = CGVector(dx: point.x - x, dy: point.y - y)
 
-        if deltaY < 0 && deltaX < 0 {
-            return -(deltaY / deltaX)
-        }
-
-        // vertical
-        if deltaY == 0 { return deltaX > 0 ? .greatestFiniteMagnitude : -.greatestFiniteMagnitude }
-
-        // horizontal
-        if deltaX == 0 { return deltaY > 0 ? .pi : -.pi }
-
-        return deltaY / deltaX
+        let angle = atan2(v2.dy, v2.dx) - atan2(v1.dy, v1.dx)
+        return angle * CGFloat(180.0 / .pi)
     }
 
     func numberOfVisibleAsteroids(other asteroids: [Asteroid]) -> Int {
-        var slopeWithVisibleAsteroids: [Double: Asteroid] = [:]
+        var angleWithVisibleAsteroids: [CGFloat: Asteroid] = [:]
         for asteroid in asteroids {
             guard asteroid != self else { continue }
-            let slopeToAsteroid = slope(to: asteroid)
-            let asteroidWithSameSlope = slopeWithVisibleAsteroids[slopeToAsteroid]
-            if asteroidWithSameSlope == nil {
-                slopeWithVisibleAsteroids[slopeToAsteroid] = asteroid
-            } else if let asteroidWithSameSlope = asteroidWithSameSlope,
+            let angleToAsteroid = angle(to: asteroid)
+            let asteroidWithSameAngle = angleWithVisibleAsteroids[angleToAsteroid]
+            if asteroidWithSameAngle == nil {
+                angleWithVisibleAsteroids[angleToAsteroid] = asteroid
+            } else if let asteroidWithSameSlope = asteroidWithSameAngle,
                 distance(to: asteroid) < distance(to: asteroidWithSameSlope) {
-                slopeWithVisibleAsteroids[slopeToAsteroid] = asteroid
+                angleWithVisibleAsteroids[angleToAsteroid] = asteroid
             } else {
                 //blocked by another asteroid
                 continue
             }
 //            print("\(slopeToAsteroid) for \(asteroid.x)/\(asteroid.y)")
         }
-        /**
-         1/0 with: 7
-         4/0 with: 7
-         0/2 with: 6
-         1/2 with: 7
-         2/2 with: 7
-         3/2 with: 7
-         4/2 with: 5
-         4/3 with: 6 -> 7
-         3/4 with: 6 -> 8
-         4/4 with: 7
-         */
-        print("\(x)/\(y) with: \(slopeWithVisibleAsteroids.keys.count)")
-        return slopeWithVisibleAsteroids.keys.count
+//        print("\(x)/\(y) with: \(slopeWithVisibleAsteroids.keys.count)")
+        return angleWithVisibleAsteroids.keys.count
     }
 }
