@@ -7,7 +7,7 @@ import Foundation
 enum Day11 {
     static func solve() {
         let input = Input.get("11-Input.txt")
-//        print("Result Day 11 - Part One: \(intcodeProgramForPart1(input: input))")
+        print("Result Day 11 - Part One: \(intcodeProgramForPart1(input: input))")
         print("Result Day 11 - Part Two: \(intcodeProgramForPart2(input: input))")
     }
 
@@ -18,9 +18,19 @@ enum Day11 {
     }
 
     private static func intcodeProgramForPart2(input: String) -> String {
-        let result = paintPanels(with: input, startColor: 1)
-        draw(coordinatesWithColor: result)
-        return "👩‍🎨"
+        let panels = paintPanels(with: input, startColor: 1)
+        let painting = draw(coordinatesWithColor: panels)
+        let expectedResult = """
+        ◾️◾️⬜️⬜️◾️◾️⬜️⬜️⬜️◾️◾️⬜️◾️◾️⬜️◾️◾️⬜️⬜️◾️◾️⬜️◾️◾️⬜️◾️⬜️⬜️⬜️◾️◾️⬜️⬜️⬜️⬜️◾️⬜️◾️◾️⬜️◾️◾️◾️
+        ◾️⬜️◾️◾️⬜️◾️⬜️◾️◾️⬜️◾️⬜️◾️◾️⬜️◾️⬜️◾️◾️⬜️◾️⬜️◾️◾️⬜️◾️⬜️◾️◾️⬜️◾️⬜️◾️◾️◾️◾️⬜️◾️◾️⬜️◾️◾️◾️
+        ◾️⬜️◾️◾️⬜️◾️⬜️◾️◾️⬜️◾️⬜️◾️◾️⬜️◾️⬜️◾️◾️◾️◾️⬜️◾️◾️⬜️◾️⬜️◾️◾️⬜️◾️⬜️⬜️⬜️◾️◾️⬜️⬜️⬜️⬜️◾️◾️◾️
+        ◾️⬜️⬜️⬜️⬜️◾️⬜️⬜️⬜️◾️◾️⬜️◾️◾️⬜️◾️⬜️◾️⬜️⬜️◾️⬜️◾️◾️⬜️◾️⬜️⬜️⬜️◾️◾️⬜️◾️◾️◾️◾️⬜️◾️◾️⬜️◾️◾️◾️
+        ◾️⬜️◾️◾️⬜️◾️⬜️◾️◾️◾️◾️⬜️◾️◾️⬜️◾️⬜️◾️◾️⬜️◾️⬜️◾️◾️⬜️◾️⬜️◾️⬜️◾️◾️⬜️◾️◾️◾️◾️⬜️◾️◾️⬜️◾️◾️◾️
+        ◾️⬜️◾️◾️⬜️◾️⬜️◾️◾️◾️◾️◾️⬜️⬜️◾️◾️◾️⬜️⬜️⬜️◾️◾️⬜️⬜️◾️◾️⬜️◾️◾️⬜️◾️⬜️◾️◾️◾️◾️⬜️◾️◾️⬜️◾️◾️◾️
+
+        """
+        assert(painting == expectedResult)
+        return "\n" + painting
     }
 
     private static func paintPanels(with input: String, startColor: Int) -> [Coordinate: Int] {
@@ -51,27 +61,23 @@ enum Day11 {
         return paintedPanels
     }
 
-    private static func draw(coordinatesWithColor: [Coordinate: Int]) {
+    private static func draw(coordinatesWithColor: [Coordinate: Int]) -> String {
         let maxY = coordinatesWithColor.keys.map { $0.y }.max() ?? 0
         let minY = coordinatesWithColor.keys.map { $0.y }.min() ?? 0
         let maxX = coordinatesWithColor.keys.map { $0.x }.max() ?? 0
         let minX = coordinatesWithColor.keys.map { $0.x }.min() ?? 0
 
-        var height = abs(minY) + maxY
+        let height = abs(minY) + maxY + 1
         let width = abs(minX) + maxX + 1
-        let line: [String] = Array(repeating: "◽️", count: width)
-        var image: [[String]] = [line]
 
-        while height > 0 {
-            image.append(line)
-            height -= 1
-        }
+        var image = Array(repeating: Array(repeating: "◾️", count: width), count: height)
 
-        for coordinateWithColor in coordinatesWithColor {
-            let x = coordinateWithColor.key.x + abs(minX)
-            let y = coordinateWithColor.key.y + abs(minY)
-
-            image[y][x] = coordinateWithColor.value == 0 ? "◾️" : "◽️"
+        for y in minY...maxY {
+            for x in minX...maxX {
+                let coordinate = Coordinate(x: x, y: y)
+                let color = coordinatesWithColor[coordinate] ?? 0
+                image[maxY - y][x - minX] = color == 1 ? "⬜️" : "◾️"
+            }
         }
 
         var formatted = ""
@@ -79,6 +85,6 @@ enum Day11 {
             formatted.append(contentsOf: line.joined())
             formatted += "\n"
         }
-        print(formatted)
+        return formatted
     }
 }

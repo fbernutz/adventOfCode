@@ -20,13 +20,13 @@ struct Coordinate: Hashable {
         let newCoordinate: Coordinate
         switch direction {
         case .left:
-            newCoordinate = Coordinate(x: x-1, y: y)
+            newCoordinate = Coordinate(x: x - 1, y: y)
         case .right:
-            newCoordinate = Coordinate(x: x+1, y: y)
+            newCoordinate = Coordinate(x: x + 1, y: y)
         case .up:
-            newCoordinate = Coordinate(x: x, y: y+1)
+            newCoordinate = Coordinate(x: x, y: y + 1)
         case .down:
-            newCoordinate = Coordinate(x: x, y: y-1)
+            newCoordinate = Coordinate(x: x, y: y - 1)
         }
         return newCoordinate
     }
