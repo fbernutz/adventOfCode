@@ -18,7 +18,7 @@ enum Day11 {
     }
 
     private static func intcodeProgramForPart2(input: String) -> String {
-        let result = paintPanels(with: input, startColor: 0)
+        let result = paintPanels(with: input, startColor: 1)
         draw(coordinatesWithColor: result)
         return "👩‍🎨"
     }
@@ -57,7 +57,7 @@ enum Day11 {
         let maxX = coordinatesWithColor.keys.map { $0.x }.max() ?? 0
         let minX = coordinatesWithColor.keys.map { $0.x }.min() ?? 0
 
-        var height = abs(minY) + maxY + 1
+        var height = abs(minY) + maxY
         let width = abs(minX) + maxX + 1
         let line: [String] = Array(repeating: "◽️", count: width)
         var image: [[String]] = [line]

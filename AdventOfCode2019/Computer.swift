@@ -24,130 +24,104 @@ class Computer {
 
     init(name: String = "A", rawMemory: String) {
         self.name = name
-        self.memory = rawMemory.components(separatedBy: ",")
+        memory = rawMemory
+            .components(separatedBy: ",")
             .compactMap { Int($0) }
     }
 
     /**
-     parameter modes:
-     - 0, position mode,
-     which causes the parameter to be interpreted as a position - if the parameter is 50, its value is the value stored at address 50 in memory
-     - 1, immediate mode,
-     where a parameter is interpreted as a value - if the parameter is 50, its value is simply 50.
+     - 0, position mode: the parameter to be interpreted as a position
+     if the parameter is 50, its value is the value stored at address 50 in memory
+
+     - 1, immediate mode: the parameter is interpreted as a value
+     if the parameter is 50, its value is simply 50.
+
+     - 2, relative mode: the parameter is interpreted as a position
+     Like position mode, parameters in relative mode can be read from or written to. Relative mode parameters don't count from address 0. Instead, they count from a value called the relative base. The relative base starts at 0.
      */
-    enum ParameterMode: Int {
+    private enum ParameterMode: Int {
         case position
         case immediate
         case relative
 
-        func value(for index: Int, memory: [Int], relativeBaseOffset: Int) -> Int {
+        func readValue(for index: Int, memory: [Int], relativeBaseOffset: Int) -> Int {
             switch self {
             case .position:
-                return memory[index]
+                return memory[safe: index]
             case .immediate:
                 return index
             case .relative:
-                return memory[relativeBaseOffset + index]
+                return memory[safe: relativeBaseOffset + index]
             }
         }
 
-        func write(for index: Int, memory: [Int], relativeBaseOffset: Int) -> Int {
+        func write(for index: Int, relativeBaseOffset: Int) -> Int {
             switch self {
             case .position:
                 return index
-            case .relative,
-                 .immediate:
+            case .immediate,
+                 .relative:
                 return relativeBaseOffset + index
             }
         }
     }
 
+    private enum Opcode: Int {
+        case add = 1
+        case multiply
+        case write
+        case read
+        case jumpIfTrue
+        case jumpIfFalse
+        case lessThan
+        case equals
+        case adjustRelativeBase
+        case halt = 99
+    }
+
     func runProgramm(input: Int) -> Int? {
-//        print("Running Amp\(name) with input: \(input)")
+//        print("Running Computer \(name) with input: \(input)")
         var currentOutput = input
 
-        repeat {
-            // ABCDE
-            // A: if empty -> 0, parameter mode
-            // B: parameter mode
-            // C: parameter mode
-            // DE: opcode, 02 etc.
+        while true {
+            let position = memory[safe: index]
+            let modes = parameterModes(for: position)
 
-            var parameterModes = memory[index].description
-                .reversed()
-                .map { String($0) }
-                .dropFirst()
-                .dropFirst()
-            while parameterModes.count <= 3 {
-                parameterModes.append("0")
+            guard let opcode = Opcode(rawValue: position % 100) else {
+                fatalError("invalid input")
             }
-            let mode = parameterModes
-                .compactMap { Int($0) }
-                .map { ParameterMode(rawValue: $0)! }
-                // CBA
-
-            let opcode = memory[index].description
-                .reversed()
-                .map { String($0) }
-                .joined()
 
             switch opcode {
-            case let opcode where opcode.starts(with: "1"):
-                // addition next to inputs and write in third output
-
-                let firstInputIndex = memory[index + 1]
-                let secondInputIndex = memory[index + 2]
-                let outputIndex = memory[index + 3]
-                let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                let second = mode[1].value(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                let output = mode[2].write(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                if output + relativeBase > memory.count {
-                    memory.append(contentsOf: Array(repeating: 0, count: output + relativeBase - memory.count + 1))
-                }
-                memory[output] = first + second
+            case .add:
+                let firstInputIndex = memory[safe: index + 1]
+                let secondInputIndex = memory[safe: index + 2]
+                let outputIndex = memory[safe: index + 3]
+                let first = modes[0].readValue(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let second = modes[1].readValue(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let output = modes[2].write(for: outputIndex, relativeBaseOffset: relativeBase)
+                memory[safe: output] = first + second
 
                 index += 4
-            case let opcode where opcode.starts(with: "2"):
-                // multiply next two
-
-                let firstInputIndex = memory[index + 1]
-                let secondInputIndex = memory[index + 2]
-                let outputIndex = memory[index + 3]
-                if firstInputIndex + relativeBase > memory.count {
-                    memory.append(contentsOf: Array(repeating: 0, count: firstInputIndex + relativeBase - memory.count + 1))
-                }
-                let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                if secondInputIndex + relativeBase > memory.count {
-                    memory.append(contentsOf: Array(repeating: 0, count: secondInputIndex + relativeBase - memory.count + 1))
-                }
-                let second = mode[1].value(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                if outputIndex + relativeBase > memory.count {
-                    memory.append(contentsOf: Array(repeating: 0, count: outputIndex + relativeBase - memory.count + 1))
-                }
-                let output = mode[2].write(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                if output + relativeBase > memory.count {
-                    memory.append(contentsOf: Array(repeating: 0, count: output + relativeBase - memory.count + 1))
-                }
-                memory[output] = first * second
+            case .multiply:
+                let firstInputIndex = memory[safe: index + 1]
+                let secondInputIndex = memory[safe: index + 2]
+                let outputIndex = memory[safe: index + 3]
+                let first = modes[0].readValue(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let second = modes[1].readValue(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let output = modes[2].write(for: outputIndex, relativeBaseOffset: relativeBase)
+                memory[safe: output] = first * second
 
                 index += 4
-            case let opcode where opcode.starts(with: "3"):
-                // save input
-
-                let outputIndex = memory[index + 1]
-                let output = mode[0].write(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                if output + relativeBase > memory.count {
-                    memory.append(contentsOf: Array(repeating: 0, count: output + relativeBase - memory.count + 1))
-                }
-                memory[output] = phaseSetting ?? input
+            case .write:
+                let outputIndex = memory[safe: index + 1]
+                let output = modes[0].write(for: outputIndex, relativeBaseOffset: relativeBase)
+                memory[safe: output] = phaseSetting ?? input
                 phaseSetting = nil
 
                 index += 2
-            case let opcode where opcode.starts(with: "4"):
-                // return output
-
-                let firstInputIndex = memory[index + 1]
-                let output = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+            case .read:
+                let firstInputIndex = memory[safe: index + 1]
+                let output = modes[0].readValue(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
 //                print("Returning Amp\(name) with output: \(output)")
 
                 currentOutput = output
@@ -155,81 +129,110 @@ class Computer {
                 if shouldReturnAt4 {
                     return output
                 }
-            case let opcode where opcode.starts(with: "5"):
-                // jump-if-true
-                let firstInputIndex = memory[index + 1]
-                let secondInputIndex = memory[index + 2]
-                let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                let second = mode[1].value(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+            case .jumpIfTrue:
+                let firstInputIndex = memory[safe: index + 1]
+                let secondInputIndex = memory[safe: index + 2]
+                let first = modes[0].readValue(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let second = modes[1].readValue(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
                 if first != 0 {
                     index = second
                 } else {
                     index += 3
                 }
-            case let opcode where opcode.starts(with: "6"):
-                // jump-if-false
-                let firstInputIndex = memory[index + 1]
-                let secondInputIndex = memory[index + 2]
-                let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                let second = mode[1].value(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+            case .jumpIfFalse:
+                let firstInputIndex = memory[safe: index + 1]
+                let secondInputIndex = memory[safe: index + 2]
+                let first = modes[0].readValue(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let second = modes[1].readValue(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
                 if first == 0 {
                     index = second
                 } else {
                     index += 3
                 }
-            case let opcode where opcode.starts(with: "7"):
-                // less than
-                let firstInputIndex = memory[index + 1]
-                let secondInputIndex = memory[index + 2]
-                let outputIndex = memory[index + 3]
-                let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                let second = mode[1].value(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                let output = mode[2].write(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                if output + relativeBase > memory.count {
-                    memory.append(contentsOf: Array(repeating: 0, count: output + relativeBase - memory.count + 1))
-                }
+            case .lessThan:
+                let firstInputIndex = memory[safe: index + 1]
+                let secondInputIndex = memory[safe: index + 2]
+                let outputIndex = memory[safe: index + 3]
+                let first = modes[0].readValue(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let second = modes[1].readValue(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let output = modes[2].write(for: outputIndex, relativeBaseOffset: relativeBase)
 
                 if first < second {
-                    memory[output] = 1
+                    memory[safe: output] = 1
                 } else {
-                    memory[output] = 0
+                    memory[safe: output] = 0
                 }
 
                 index += 4
-            case let opcode where opcode.starts(with: "8"):
-                // equals
-                let firstInputIndex = memory[index + 1]
-                let secondInputIndex = memory[index + 2]
-                let outputIndex = memory[index + 3]
-                let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                let second = mode[1].value(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                let output = mode[2].write(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                if output + relativeBase > memory.count {
-                    memory.append(contentsOf: Array(repeating: 0, count: output + relativeBase - memory.count + 1))
-                }
+            case .equals:
+                let firstInputIndex = memory[safe: index + 1]
+                let secondInputIndex = memory[safe: index + 2]
+                let outputIndex = memory[safe: index + 3]
+                let first = modes[0].readValue(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let second = modes[1].readValue(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                let output = modes[2].write(for: outputIndex, relativeBaseOffset: relativeBase)
 
                 if first == second {
-                    memory[output] = 1
+                    memory[safe: output] = 1
                 } else {
-                    memory[output] = 0
+                    memory[safe: output] = 0
                 }
 
                 index += 4
-            case let opcode where opcode.starts(with: "99"):
-                // halting programm
-//                print("Halting Amp\(name) with output: \(currentOutput)")
+            case .adjustRelativeBase:
+                // adjusts the relative base
+                let firstInputIndex = memory[safe: index + 1]
+                let first = modes[0].readValue(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                relativeBase += first
+
+                index += 2
+            case .halt:
+//                print("Halting Computer\(name) with output: \(currentOutput)")
                 hit99 = true
                 return currentOutput
-            case let opcode where opcode.starts(with: "9"):
-                // adjusts the relative base
-                let firstInputIndex = memory[index + 1]
-                let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
-                relativeBase += first
-                
-                index += 2
-            default:
-                fatalError("invalid input")
             }
-        } while true
+        }
+    }
+
+    private func parameterModes(for value: Int) -> [Computer.ParameterMode] {
+        // ABCDE
+        // A: if empty -> 0, parameter mode
+        // B: parameter mode
+        // C: parameter mode
+        // DE: opcode, 02 etc.
+
+        var parameterModes = value.description
+            .reversed()
+            .map { String($0) }
+            .dropFirst()
+            .dropFirst()
+        while parameterModes.count < 4 {
+            parameterModes.append("0")
+        }
+
+        // CBA
+        let modes = parameterModes
+            .compactMap { Int($0) }
+            .map { ParameterMode(rawValue: $0)! }
+        return modes
+    }
+}
+
+private extension Array where Element == Int {
+    subscript(safe index: Int) -> Element {
+        get {
+            if index >= count {
+                return 0
+            } else {
+                return self[index]
+            }
+        }
+
+        set {
+            if index >= count {
+                self += Array(repeating: 0, count: index - count + 1)
+            }
+            self[index] = newValue
+        }
     }
 }
