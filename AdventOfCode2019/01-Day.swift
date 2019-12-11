@@ -1,11 +1,3 @@
-//
-//  01-Day.swift
-//  AdventOfCode2019
-//
-//  Created by Felizia Bernutz on 01.12.19.
-//  Copyright © 2019 fbe. All rights reserved.
-//
-
 import Foundation
 
 /**

@@ -1,11 +1,3 @@
-//
-//  02-Day.swift
-//  AdventOfCode2019
-//
-//  Created by Felizia Bernutz on 02.12.19.
-//  Copyright © 2019 fbe. All rights reserved.
-//
-
 import Foundation
 
 /**
@@ -15,8 +7,7 @@ https://adventofcode.com/2019/day/2
 enum Day02 {
     static func solve() {
         let input = Input.get("02-Input.txt")
-        print("Result Day 2 - Part One: \(intcodeProgram(input: input))")
-        print("Result Day 2 - Part Two: \(intcodeProgram(input: input))")
+        print("Result Day 2 - Part One & Two: \(intcodeProgram(input: input))")
     }
 
     private static func intcodeProgram(input: String) -> String {
@@ -45,8 +36,6 @@ enum Day02 {
                 numbers[outputIndex] = numbers[firstInputIndex] * numbers[secondInputIndex]
             case 99:
                 // halting programm
-                // Part 2:
-                // assert(numbers[0] == 19690720)
                 return String(numbers[0])
             default:
                 continue

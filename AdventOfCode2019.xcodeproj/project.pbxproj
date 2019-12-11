@@ -16,6 +16,8 @@
 		3F6A0F1E23929DD300F734B9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A0F1D23929DD300F734B9 /* main.swift */; };
 		3F6A0F2623929EA800F734B9 /* 2018-01-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A0F2523929EA800F734B9 /* 2018-01-Day.swift */; };
 		3F6A0F282392A25E00F734B9 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A0F272392A25E00F734B9 /* Input.swift */; };
+		3F6E5EC623A1642800B99C7C /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6E5EC523A1642800B99C7C /* Coordinate.swift */; };
+		3F6E5EC823A1652200B99C7C /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6E5EC723A1652200B99C7C /* Direction.swift */; };
 		3F84925C2398D46200521F97 /* 05-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F84925B2398D46200521F97 /* 05-Day.swift */; };
 		3F860E6E2399B4A60080576B /* 06-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F860E6D2399B4A60080576B /* 06-Day.swift */; };
 		3F997953239D9ADC006DB96B /* 09-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F997952239D9ADC006DB96B /* 09-Day.swift */; };
@@ -54,6 +56,8 @@
 		3F6A0F2523929EA800F734B9 /* 2018-01-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2018-01-Day.swift"; sourceTree = "<group>"; };
 		3F6A0F272392A25E00F734B9 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
 		3F6A0F2B2392A56200F734B9 /* 2018-01-Input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2018-01-Input.txt"; sourceTree = "<group>"; };
+		3F6E5EC523A1642800B99C7C /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
+		3F6E5EC723A1652200B99C7C /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		3F84925A2398D46200521F97 /* 05-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "05-Input.txt"; sourceTree = "<group>"; };
 		3F84925B2398D46200521F97 /* 05-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "05-Day.swift"; sourceTree = "<group>"; };
 		3F860E6C2399B4A60080576B /* 06-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "06-Input.txt"; sourceTree = "<group>"; };
@@ -122,6 +126,8 @@
 				3F6A0F2523929EA800F734B9 /* 2018-01-Day.swift */,
 				3F6A0F2B2392A56200F734B9 /* 2018-01-Input.txt */,
 				3F997956239E20D0006DB96B /* Computer.swift */,
+				3F6E5EC523A1642800B99C7C /* Coordinate.swift */,
+				3F6E5EC723A1652200B99C7C /* Direction.swift */,
 				3F6A0F272392A25E00F734B9 /* Input.swift */,
 				3F6A0F1D23929DD300F734B9 /* main.swift */,
 			);
@@ -189,9 +195,11 @@
 				3F6A0F282392A25E00F734B9 /* Input.swift in Sources */,
 				3F997957239E20D0006DB96B /* Computer.swift in Sources */,
 				3FCED5B8239C658F006EE248 /* 08-Day.swift in Sources */,
+				3F6E5EC623A1642800B99C7C /* Coordinate.swift in Sources */,
 				3F6A0F1E23929DD300F734B9 /* main.swift in Sources */,
 				3F07B1252394EAC300123D12 /* 02-Day.swift in Sources */,
 				3F1C172623970D990033C4D4 /* 04-Day.swift in Sources */,
+				3F6E5EC823A1652200B99C7C /* Direction.swift in Sources */,
 				3FAABACF23A0BCEA00DD6E03 /* 11-Day.swift in Sources */,
 				3F5EEF1A239B0E720015404B /* 07-Day.swift in Sources */,
 				3F6A0F2623929EA800F734B9 /* 2018-01-Day.swift in Sources */,

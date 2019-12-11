@@ -9,18 +9,32 @@
 import Foundation
 
 class Computer {
-    var name: String
+    let name: String
     var memory: [Int] = []
     var index: Int = 0
     var relativeBase: Int = 0
     var phaseSetting: Int?
     var hit99: Bool = false
+    var shouldReturnAt4: Bool = true
 
     init(name: String = "A", memory: [Int]) {
         self.name = name
         self.memory = memory
     }
 
+    init(name: String = "A", rawMemory: String) {
+        self.name = name
+        self.memory = rawMemory.components(separatedBy: ",")
+            .compactMap { Int($0) }
+    }
+
+    /**
+     parameter modes:
+     - 0, position mode,
+     which causes the parameter to be interpreted as a position - if the parameter is 50, its value is the value stored at address 50 in memory
+     - 1, immediate mode,
+     where a parameter is interpreted as a value - if the parameter is 50, its value is simply 50.
+     */
     enum ParameterMode: Int {
         case position
         case immediate
@@ -53,6 +67,12 @@ class Computer {
         var currentOutput = input
 
         repeat {
+            // ABCDE
+            // A: if empty -> 0, parameter mode
+            // B: parameter mode
+            // C: parameter mode
+            // DE: opcode, 02 etc.
+
             var parameterModes = memory[index].description
                 .reversed()
                 .map { String($0) }
@@ -64,6 +84,7 @@ class Computer {
             let mode = parameterModes
                 .compactMap { Int($0) }
                 .map { ParameterMode(rawValue: $0)! }
+                // CBA
 
             let opcode = memory[index].description
                 .reversed()
@@ -131,7 +152,9 @@ class Computer {
 
                 currentOutput = output
                 index += 2
-                return output
+                if shouldReturnAt4 {
+                    return output
+                }
             case let opcode where opcode.starts(with: "5"):
                 // jump-if-true
                 let firstInputIndex = memory[index + 1]

@@ -1,11 +1,3 @@
-//
-//  02-Day.swift
-//  AdventOfCode2019
-//
-//  Created by Felizia Bernutz on 02.12.19.
-//  Copyright © 2019 fbe. All rights reserved.
-//
-
 import Foundation
 
 /**
@@ -49,29 +41,22 @@ private struct OrbitConstellation {
 enum Day06 {
     static func solve() {
         let input = Input.get("06-Input.txt")
-        print(Date())
         print("Result Day 6 - Part One: \(countOrbitChecksums(input: input))")
-//        print("Result Day 6 - Part Two: \(countMinimumTransfersToSanta(input: input))")
-        print(Date())
+        print("Result Day 6 - Part Two: \(countMinimumTransfersToSanta(input: input))")
     }
 
     private static func countOrbitChecksums(input: String) -> String {
-        let constellations = input
-            .components(separatedBy: .newlines)
-            .filter { !$0.isEmpty }
-            .map(OrbitConstellation.init)
-
+        let constellations = prepareInput(input: input)
         let count = constellations
             .map { $0.countConnections(for: constellations) }
-            .reduce(0,+)
+            .reduce(0, +)
+
+        assert(count == 147807)
         return String(count)
     }
 
     private static func countMinimumTransfersToSanta(input: String) -> String {
-        let constellations = input
-            .components(separatedBy: .newlines)
-            .filter { !$0.isEmpty }
-            .map(OrbitConstellation.init)
+        let constellations = prepareInput(input: input)
 
         let chainYou = constellations
             .first { $0.orbit == "YOU" }!
@@ -85,8 +70,18 @@ enum Day06 {
         // count from YOU and SAN to intersection, exclusive YOU and SAN
         let stepsToIntersectionFromYou = Int(chainYou.firstIndex(of: intersection)!) - 1
         let stepsToIntersectionFromSanta = Int(chainSanta.firstIndex(of: intersection)!) - 1
+        let result = stepsToIntersectionFromYou + stepsToIntersectionFromSanta
 
-        return String(stepsToIntersectionFromYou + stepsToIntersectionFromSanta)
+        assert(result == 229)
+        return String(result)
     }
+}
 
+extension Day06 {
+    private static func prepareInput(input: String) -> [OrbitConstellation] {
+        return input
+            .components(separatedBy: .newlines)
+            .filter { !$0.isEmpty }
+            .map(OrbitConstellation.init)
+    }
 }

@@ -1,11 +1,3 @@
-//
-//  02-Day.swift
-//  AdventOfCode2019
-//
-//  Created by Felizia Bernutz on 02.12.19.
-//  Copyright © 2019 fbe. All rights reserved.
-//
-
 import Foundation
 
 /**
@@ -32,10 +24,10 @@ private struct Layer {
             let index = String.Index(utf16Offset: index * (width + 1), in: output)
             output.insert("\n", at: index)
         }
-        output = output.replacingOccurrences(of: "0", with: "◾️")
-        output = output.replacingOccurrences(of: "1", with: "⬜️")
-        output = output.replacingOccurrences(of: "2", with: "🧊")
-        return output
+
+        return output.replacingOccurrences(of: "0", with: "◾️")
+            .replacingOccurrences(of: "1", with: "⬜️")
+            .replacingOccurrences(of: "2", with: "🧊")
     }
 }
 
@@ -56,11 +48,15 @@ enum Day08 {
         let layers = parseImageData(input)
 
         let layerWithFewestZeroDigits = layers.min {
-            $0.content.filter { $0 == 0 }.count < $1.content.filter { $0 == 0 }.count
+            $0.content.filter { $0 == 0 }.count
+                < $1.content.filter { $0 == 0 }.count
         }!
         let numberOfOneDigit = layerWithFewestZeroDigits.content.filter { $0 == 1 }.count
         let numberOfTwoDigit = layerWithFewestZeroDigits.content.filter { $0 == 2 }.count
-        return String(numberOfOneDigit * numberOfTwoDigit)
+
+        let result = numberOfOneDigit * numberOfTwoDigit
+        assert(result == 1463)
+        return String(result)
     }
 
     private static func printImageDataForPart2(input: String) -> String {
@@ -72,9 +68,24 @@ enum Day08 {
             let outputPixel = pixels.first { $0 != 2 } ?? 2
             newContent.append(outputPixel)
         }
-        return Layer(with: newContent, width: width).formattedOutput
-    }
+        let result = Layer(with: newContent, width: width).formattedOutput
 
+        let expectedResult = """
+
+            ◾️⬜️⬜️◾️◾️⬜️◾️◾️⬜️◾️◾️⬜️⬜️◾️◾️⬜️◾️◾️⬜️◾️⬜️◾️◾️⬜️◾️
+            ⬜️◾️◾️⬜️◾️⬜️◾️⬜️◾️◾️⬜️◾️◾️⬜️◾️⬜️◾️⬜️◾️◾️⬜️◾️◾️⬜️◾️
+            ⬜️◾️◾️◾️◾️⬜️⬜️◾️◾️◾️⬜️◾️◾️◾️◾️⬜️⬜️◾️◾️◾️⬜️⬜️⬜️⬜️◾️
+            ⬜️◾️⬜️⬜️◾️⬜️◾️⬜️◾️◾️⬜️◾️◾️◾️◾️⬜️◾️⬜️◾️◾️⬜️◾️◾️⬜️◾️
+            ⬜️◾️◾️⬜️◾️⬜️◾️⬜️◾️◾️⬜️◾️◾️⬜️◾️⬜️◾️⬜️◾️◾️⬜️◾️◾️⬜️◾️
+            ◾️⬜️⬜️⬜️◾️⬜️◾️◾️⬜️◾️◾️⬜️⬜️◾️◾️⬜️◾️◾️⬜️◾️⬜️◾️◾️⬜️◾️
+            """
+
+        assert(result == expectedResult)
+        return result
+    }
+}
+
+extension Day08 {
     private static func parseImageData(_ input: String) -> [Layer] {
         var input = input
 
@@ -88,7 +99,6 @@ enum Day08 {
             input = String(input.dropFirst(numberOfPixels))
         }
 
-        let layers = formattedInput.map { Layer(with: $0, width: width) }
-        return layers
+        return formattedInput.map { Layer(with: $0, width: width) }
     }
 }

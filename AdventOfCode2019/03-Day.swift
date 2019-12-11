@@ -1,25 +1,8 @@
-//
-//  02-Day.swift
-//  AdventOfCode2019
-//
-//  Created by Felizia Bernutz on 02.12.19.
-//  Copyright © 2019 fbe. All rights reserved.
-//
-
 import Foundation
 
 /**
 https://adventofcode.com/2019/day/3
 */
-
-private struct Coordinate: Hashable {
-    let x: Int
-    let y: Int
-
-    var distance: Int {
-        return abs(x) + abs(y)
-    }
-}
 
 enum Day03 {
     static func solve() {

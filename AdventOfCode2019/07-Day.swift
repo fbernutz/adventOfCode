@@ -1,39 +1,13 @@
-//
-//  02-Day.swift
-//  AdventOfCode2019
-//
-//  Created by Felizia Bernutz on 02.12.19.
-//  Copyright © 2019 fbe. All rights reserved.
-//
-
 import Foundation
 
 /**
  https:adventofcode.com/2019/day/7
  */
 
-//https://www.objc.io/blog/2014/12/08/functional-snippet-10-permutations/
-private extension Array {
-    func decompose() -> (Iterator.Element, [Iterator.Element])? {
-        guard let x = first else { return nil }
-        return (x, Array(self[1..<count]))
-    }
-}
-
-private func between<T>(_ x: T, _ ys: [T]) -> [[T]] {
-    guard let (head, tail) = ys.decompose() else { return [[x]] }
-    return [[x] + ys] + between(x, tail).map { [head] + $0 }
-}
-
-private func permutations<T>(_ xs: [T]) -> [[T]] {
-    guard let (head, tail) = xs.decompose() else { return [[]] }
-    return permutations(tail).flatMap { between(head, $0) }
-}
-
 enum Day07 {
     static func solve() {
         let input = Input.get("07-Input.txt")
-        print("Result Day 7 - Part One&Two: \(intcodeProgram(input: input))")
+        print("Result Day 7 - Part One & Two: \(intcodeProgram(input: input))")
     }
 
     private static func intcodeProgram(input: String) -> String {
@@ -64,14 +38,35 @@ enum Day07 {
 
             print("Run Feedback Loop")
             var currentOutput = 0
-            repeat {
+            while amplifiers.last!.hit99 == false {
                 for amplifier in amplifiers {
                     currentOutput = amplifier.runProgramm(input: currentOutput)!
                 }
-            } while amplifiers.last!.hit99 == false
+            }
             possibleOutputs.insert(currentOutput)
         }
 
-        return String(possibleOutputs.max()!)
+        let result = possibleOutputs.max()!
+        assert(result == 25534964)//18812)
+
+        return String(result)
     }
+}
+
+//https://www.objc.io/blog/2014/12/08/functional-snippet-10-permutations/
+private extension Array {
+    func decompose() -> (Iterator.Element, [Iterator.Element])? {
+        guard let x = first else { return nil }
+        return (x, Array(self[1..<count]))
+    }
+}
+
+private func between<T>(_ x: T, _ ys: [T]) -> [[T]] {
+    guard let (head, tail) = ys.decompose() else { return [[x]] }
+    return [[x] + ys] + between(x, tail).map { [head] + $0 }
+}
+
+private func permutations<T>(_ xs: [T]) -> [[T]] {
+    guard let (head, tail) = xs.decompose() else { return [[]] }
+    return permutations(tail).flatMap { between(head, $0) }
 }

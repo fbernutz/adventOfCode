@@ -4,63 +4,6 @@ import Foundation
  https:adventofcode.com/2019/day/10
  */
 
-enum Day10 {
-    static func solve() {
-        let input = Input.get("10-Input.txt")
-//        print("Result Day 10 - Part One: \(findBestAsteroidStation(input: input))")
-        print("Result Day 10 - Part Two: \(vaporizeAsteroids(input: input))")
-    }
-
-    private static func findBestAsteroidStation(input: String) -> String {
-        let asteroids = setupAsteroids(input: input)
-        let count = findBestAsteroid(in: asteroids).1
-        return String(count)
-    }
-
-    private static func vaporizeAsteroids(input: String) -> String {
-        let asteroids = setupAsteroids(input: input)
-        let asteroid = findBestAsteroid(in: asteroids).0
-
-        let asteroidsWithAngle = asteroid.angleOfAllAsteroids(other: asteroids)
-        let angles = asteroidsWithAngle
-            .map { $0.key }
-            .sorted(by: >)
-        let angle200 = angles[200]
-
-        // laser starts by pointing up -> then clockwise
-
-        let asteroid200 = asteroidsWithAngle[angle200]!
-        assert(asteroid200.x == 8 && asteroid200.y == 2)
-        return String(asteroid200.x * 100 + asteroid200.y)
-    }
-
-    private static func setupAsteroids(input: String) -> [Asteroid] {
-        let lines = input.components(separatedBy: .newlines)
-            .filter { !$0.isEmpty }
-        var asteroids: [Asteroid] = []
-
-        for (indexY, line) in lines.enumerated() {
-            for (indexX, character) in line.enumerated() {
-                if character == "#" {
-                    asteroids.append(Asteroid(x: indexX, y: indexY))
-                }
-            }
-        }
-        return asteroids
-    }
-
-    private static func findBestAsteroid(in asteroids: [Asteroid]) -> (Asteroid, Int) {
-        var numberOfVisibleAsteroids: [Int: Asteroid] = [:]
-        for asteroid in asteroids {
-            let newNumber = asteroid.numberOfVisibleAsteroids(other: asteroids)
-            numberOfVisibleAsteroids[newNumber] = asteroid
-        }
-        let bestAsteroidCount = numberOfVisibleAsteroids.keys.sorted(by: >).first!
-        let bestAsteroid = numberOfVisibleAsteroids[bestAsteroidCount]!
-        return (bestAsteroid, bestAsteroidCount)
-    }
-}
-
 private struct Asteroid: Hashable {
     let x: Int
     let y: Int
@@ -78,7 +21,6 @@ private struct Asteroid: Hashable {
 
         let angle = atan2(v2.dy, v2.dx) - atan2(v1.dy, v1.dx)
         let degree = angle * CGFloat(180.0 / .pi)
-        print(degree)
         return degree
     }
 
@@ -123,5 +65,63 @@ private struct Asteroid: Hashable {
         }
         //        print("\(x)/\(y) with: \(angleWithVisibleAsteroids.keys.count)")
         return angleWithVisibleAsteroids
+    }
+}
+
+
+enum Day10 {
+    static func solve() {
+        let input = Input.get("10-Input.txt")
+        print("Result Day 10 - Part One: \(findBestAsteroidStation(input: input))")
+        print("Result Day 10 - Part Two: \(vaporizeAsteroids(input: input))")
+    }
+
+    private static func findBestAsteroidStation(input: String) -> String {
+        let asteroids = prepareInput(input: input)
+        let count = findBestAsteroid(in: asteroids).count
+        return String(count)
+    }
+
+    private static func vaporizeAsteroids(input: String) -> String {
+        let asteroids = prepareInput(input: input)
+        let asteroid = findBestAsteroid(in: asteroids).asteroid
+
+        let asteroidsWithAngle = asteroid.angleOfAllAsteroids(other: asteroids)
+        let angles = asteroidsWithAngle
+            .map { $0.key }
+            .sorted(by: >)
+        let angle200 = angles[200]
+
+        // laser starts by pointing up -> then clockwise
+
+        let asteroid200 = asteroidsWithAngle[angle200]!
+        assert(asteroid200.x == 8 && asteroid200.y == 2)
+        return String(asteroid200.x * 100 + asteroid200.y)
+    }
+
+    private static func findBestAsteroid(in asteroids: [Asteroid]) -> (asteroid: Asteroid, count: Int) {
+        var numberOfVisibleAsteroids: [Int: Asteroid] = [:]
+        for asteroid in asteroids {
+            let newNumber = asteroid.numberOfVisibleAsteroids(other: asteroids)
+            numberOfVisibleAsteroids[newNumber] = asteroid
+        }
+        let bestAsteroidCount = numberOfVisibleAsteroids.keys.sorted(by: >).first!
+        let bestAsteroid = numberOfVisibleAsteroids[bestAsteroidCount]!
+        return (bestAsteroid, bestAsteroidCount)
+    }
+}
+
+extension Day10 {
+    private static func prepareInput(input: String) -> [Asteroid] {
+        let lines = input.components(separatedBy: .newlines)
+            .filter { !$0.isEmpty }
+
+        var asteroids: [Asteroid] = []
+        for (indexY, line) in lines.enumerated() {
+            for (indexX, character) in line.enumerated() where character == "#" {
+                asteroids.append(Asteroid(x: indexX, y: indexY))
+            }
+        }
+        return asteroids
     }
 }

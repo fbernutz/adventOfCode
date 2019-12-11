@@ -1,11 +1,3 @@
-//
-//  02-Day.swift
-//  AdventOfCode2019
-//
-//  Created by Felizia Bernutz on 02.12.19.
-//  Copyright © 2019 fbe. All rights reserved.
-//
-
 import Foundation
 
 /**
@@ -20,25 +12,14 @@ enum Day04 {
     }
 
     private static func findValidPasswordsForPart1(input: String) -> String {
-        let input = input
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-            .components(separatedBy: "-")
-            .compactMap { Int($0) }
-
-        let range = Range(uncheckedBounds: (lower: input[0], upper: input[1]))
+        let range = prepareInput(input: input)
         return String(range.filter { $0.description.isValidPasswordForPart1 }.count)
     }
 
     private static func findValidPasswordsForPart2(input: String) -> String {
-        let input = input
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-            .components(separatedBy: "-")
-            .compactMap { Int($0) }
-
-        let range = Range(uncheckedBounds: (lower: input[0], upper: input[1]))
+        let range = prepareInput(input: input)
         return String(range.filter { $0.description.isValidPasswordForPart2 }.count)
     }
-
 }
 
 private extension String {
@@ -70,11 +51,9 @@ private extension String {
 
     var containsOnlyIncreasingNumbers: Bool {
         var digits: [Int] = []
-        for (index, character) in self.enumerated() {
-            let digit: Int = Int(String(character))!
-            if digits.isEmpty {
-                digits.append(digit)
-            } else if digits[index - 1] <= digit {
+        for (index, character) in enumerated() {
+            let digit = Int(String(character))!
+            if digits.isEmpty || digits[index - 1] <= digit {
                 digits.append(digit)
             } else {
                 return false
@@ -82,5 +61,15 @@ private extension String {
         }
         return true
     }
+}
 
+extension Day04 {
+    private static func prepareInput(input: String) -> Range<Int> {
+        let input = input
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .components(separatedBy: "-")
+            .compactMap { Int($0) }
+
+        return Range(uncheckedBounds: (lower: input[0], upper: input[1]))
+    }
 }
