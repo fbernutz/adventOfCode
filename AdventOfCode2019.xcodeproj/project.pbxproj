@@ -20,6 +20,7 @@
 		3F860E6E2399B4A60080576B /* 06-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F860E6D2399B4A60080576B /* 06-Day.swift */; };
 		3F997953239D9ADC006DB96B /* 09-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F997952239D9ADC006DB96B /* 09-Day.swift */; };
 		3F997957239E20D0006DB96B /* Computer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F997956239E20D0006DB96B /* Computer.swift */; };
+		3FAABACF23A0BCEA00DD6E03 /* 11-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAABACD23A0BCE900DD6E03 /* 11-Day.swift */; };
 		3FCED5B8239C658F006EE248 /* 08-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCED5B7239C658F006EE248 /* 08-Day.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,8 @@
 		3F997951239D9ADC006DB96B /* 09-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "09-Input.txt"; sourceTree = "<group>"; };
 		3F997952239D9ADC006DB96B /* 09-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "09-Day.swift"; sourceTree = "<group>"; };
 		3F997956239E20D0006DB96B /* Computer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Computer.swift; sourceTree = "<group>"; };
+		3FAABACD23A0BCE900DD6E03 /* 11-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "11-Day.swift"; sourceTree = "<group>"; };
+		3FAABACE23A0BCE900DD6E03 /* 11-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "11-Input.txt"; sourceTree = "<group>"; };
 		3FCED5B6239C658F006EE248 /* 08-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "08-Input.txt"; sourceTree = "<group>"; };
 		3FCED5B7239C658F006EE248 /* 08-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "08-Day.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,6 +117,8 @@
 				3F997951239D9ADC006DB96B /* 09-Input.txt */,
 				3F62495A239EF31A00812F8F /* 10-Day.swift */,
 				3F62495B239EF31A00812F8F /* 10-Input.txt */,
+				3FAABACD23A0BCE900DD6E03 /* 11-Day.swift */,
+				3FAABACE23A0BCE900DD6E03 /* 11-Input.txt */,
 				3F6A0F2523929EA800F734B9 /* 2018-01-Day.swift */,
 				3F6A0F2B2392A56200F734B9 /* 2018-01-Input.txt */,
 				3F997956239E20D0006DB96B /* Computer.swift */,
@@ -187,6 +192,7 @@
 				3F6A0F1E23929DD300F734B9 /* main.swift in Sources */,
 				3F07B1252394EAC300123D12 /* 02-Day.swift in Sources */,
 				3F1C172623970D990033C4D4 /* 04-Day.swift in Sources */,
+				3FAABACF23A0BCEA00DD6E03 /* 11-Day.swift in Sources */,
 				3F5EEF1A239B0E720015404B /* 07-Day.swift in Sources */,
 				3F6A0F2623929EA800F734B9 /* 2018-01-Day.swift in Sources */,
 				3F194A192396325700D1A1A3 /* 03-Day.swift in Sources */,

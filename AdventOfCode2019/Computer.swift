@@ -16,7 +16,7 @@ class Computer {
     var phaseSetting: Int?
     var hit99: Bool = false
 
-    init(name: String, memory: [Int]) {
+    init(name: String = "A", memory: [Int]) {
         self.name = name
         self.memory = memory
     }
@@ -92,8 +92,17 @@ class Computer {
                 let firstInputIndex = memory[index + 1]
                 let secondInputIndex = memory[index + 2]
                 let outputIndex = memory[index + 3]
+                if firstInputIndex + relativeBase > memory.count {
+                    memory.append(contentsOf: Array(repeating: 0, count: firstInputIndex + relativeBase - memory.count + 1))
+                }
                 let first = mode[0].value(for: firstInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                if secondInputIndex + relativeBase > memory.count {
+                    memory.append(contentsOf: Array(repeating: 0, count: secondInputIndex + relativeBase - memory.count + 1))
+                }
                 let second = mode[1].value(for: secondInputIndex, memory: memory, relativeBaseOffset: relativeBase)
+                if outputIndex + relativeBase > memory.count {
+                    memory.append(contentsOf: Array(repeating: 0, count: outputIndex + relativeBase - memory.count + 1))
+                }
                 let output = mode[2].write(for: outputIndex, memory: memory, relativeBaseOffset: relativeBase)
                 if output + relativeBase > memory.count {
                     memory.append(contentsOf: Array(repeating: 0, count: output + relativeBase - memory.count + 1))
