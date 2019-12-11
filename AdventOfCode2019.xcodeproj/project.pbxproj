@@ -18,6 +18,7 @@
 		3F6A0F282392A25E00F734B9 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A0F272392A25E00F734B9 /* Input.swift */; };
 		3F6E5EC623A1642800B99C7C /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6E5EC523A1642800B99C7C /* Coordinate.swift */; };
 		3F6E5EC823A1652200B99C7C /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6E5EC723A1652200B99C7C /* Direction.swift */; };
+		3F6E5ECB23A189ED00B99C7C /* 12-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6E5EC923A189ED00B99C7C /* 12-Day.swift */; };
 		3F84925C2398D46200521F97 /* 05-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F84925B2398D46200521F97 /* 05-Day.swift */; };
 		3F860E6E2399B4A60080576B /* 06-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F860E6D2399B4A60080576B /* 06-Day.swift */; };
 		3F997953239D9ADC006DB96B /* 09-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F997952239D9ADC006DB96B /* 09-Day.swift */; };
@@ -58,6 +59,8 @@
 		3F6A0F2B2392A56200F734B9 /* 2018-01-Input.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "2018-01-Input.txt"; sourceTree = "<group>"; };
 		3F6E5EC523A1642800B99C7C /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		3F6E5EC723A1652200B99C7C /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
+		3F6E5EC923A189ED00B99C7C /* 12-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "12-Day.swift"; sourceTree = "<group>"; };
+		3F6E5ECA23A189ED00B99C7C /* 12-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "12-Input.txt"; sourceTree = "<group>"; };
 		3F84925A2398D46200521F97 /* 05-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "05-Input.txt"; sourceTree = "<group>"; };
 		3F84925B2398D46200521F97 /* 05-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "05-Day.swift"; sourceTree = "<group>"; };
 		3F860E6C2399B4A60080576B /* 06-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "06-Input.txt"; sourceTree = "<group>"; };
@@ -123,6 +126,8 @@
 				3F62495B239EF31A00812F8F /* 10-Input.txt */,
 				3FAABACD23A0BCE900DD6E03 /* 11-Day.swift */,
 				3FAABACE23A0BCE900DD6E03 /* 11-Input.txt */,
+				3F6E5EC923A189ED00B99C7C /* 12-Day.swift */,
+				3F6E5ECA23A189ED00B99C7C /* 12-Input.txt */,
 				3F6A0F2523929EA800F734B9 /* 2018-01-Day.swift */,
 				3F6A0F2B2392A56200F734B9 /* 2018-01-Input.txt */,
 				3F997956239E20D0006DB96B /* Computer.swift */,
@@ -194,6 +199,7 @@
 			files = (
 				3F6A0F282392A25E00F734B9 /* Input.swift in Sources */,
 				3F997957239E20D0006DB96B /* Computer.swift in Sources */,
+				3F6E5ECB23A189ED00B99C7C /* 12-Day.swift in Sources */,
 				3FCED5B8239C658F006EE248 /* 08-Day.swift in Sources */,
 				3F6E5EC623A1642800B99C7C /* Coordinate.swift in Sources */,
 				3F6A0F1E23929DD300F734B9 /* main.swift in Sources */,
