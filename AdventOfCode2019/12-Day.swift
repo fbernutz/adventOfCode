@@ -21,7 +21,7 @@ enum Day12 {
         let timeSteps = 1000
         for _ in 0..<timeSteps {
             moonsWithNewPosition = moonsWithNewPosition
-                .map { moon in moon.applyGravity(on: moonsWithNewPosition) }
+                .map { $0.applyGravity(on: moonsWithNewPosition) }
                 .map { $0.applyVelocity() }
         }
 
