@@ -7,8 +7,8 @@ import Foundation
 enum Day12 {
     static func solve() {
         let input = Input.get("12-Input.txt")
-        print("Result Day 12 - Part One: \(totalEnergyAfter1000StepsForPart1(input: input))")
-//        print("Result Day 12 - Part Two: \(intcodeProgramForPart2(input: input))")
+//        print("Result Day 12 - Part One: \(totalEnergyAfter1000StepsForPart1(input: input))")
+        print("Result Day 12 - Part Two: \(findExactPositionInTimeForPart2(input: input))")
     }
 
     private static func totalEnergyAfter1000StepsForPart1(input: String) -> String {
@@ -28,6 +28,25 @@ enum Day12 {
         let result = moonsWithNewPosition.map { $0.totalEnergy }.reduce(0, +)
         assert(result == 12466)
         return String(result)
+    }
+
+    private static func findExactPositionInTimeForPart2(input: String) -> String {
+        let moons = input.components(separatedBy: .newlines)
+            .filter { !$0.isEmpty }
+            .map(Moon.init)
+
+        var moonsWithNewPosition = moons
+        var counter = 0
+
+        repeat {
+            print(counter)
+            moonsWithNewPosition = moonsWithNewPosition
+                .map { $0.applyGravity(on: moonsWithNewPosition) }
+                .map { $0.applyVelocity() }
+            counter += 1
+        } while moonsWithNewPosition != moons
+
+        return String(counter)
     }
 }
 
