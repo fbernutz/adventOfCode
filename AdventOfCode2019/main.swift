@@ -18,4 +18,5 @@
 //Day10.solve()
 //Day11.solve()
 //Day12.solve()
-Day14.solve()
+//Day14.solve()
+Day24.solve()

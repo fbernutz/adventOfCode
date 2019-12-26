@@ -20,6 +20,7 @@
 		3F6E5EC623A1642800B99C7C /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6E5EC523A1642800B99C7C /* Coordinate.swift */; };
 		3F6E5EC823A1652200B99C7C /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6E5EC723A1652200B99C7C /* Direction.swift */; };
 		3F6E5ECB23A189ED00B99C7C /* 12-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6E5EC923A189ED00B99C7C /* 12-Day.swift */; };
+		3F81AFA723B4B7D3006D3882 /* 24-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F81AFA623B4B7D3006D3882 /* 24-Day.swift */; };
 		3F84925C2398D46200521F97 /* 05-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F84925B2398D46200521F97 /* 05-Day.swift */; };
 		3F860E6E2399B4A60080576B /* 06-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F860E6D2399B4A60080576B /* 06-Day.swift */; };
 		3F997953239D9ADC006DB96B /* 09-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F997952239D9ADC006DB96B /* 09-Day.swift */; };
@@ -64,6 +65,8 @@
 		3F6E5EC723A1652200B99C7C /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		3F6E5EC923A189ED00B99C7C /* 12-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "12-Day.swift"; sourceTree = "<group>"; };
 		3F6E5ECA23A189ED00B99C7C /* 12-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "12-Input.txt"; sourceTree = "<group>"; };
+		3F81AFA523B4B7D3006D3882 /* 24-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "24-Input.txt"; sourceTree = "<group>"; };
+		3F81AFA623B4B7D3006D3882 /* 24-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "24-Day.swift"; sourceTree = "<group>"; };
 		3F84925A2398D46200521F97 /* 05-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "05-Input.txt"; sourceTree = "<group>"; };
 		3F84925B2398D46200521F97 /* 05-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "05-Day.swift"; sourceTree = "<group>"; };
 		3F860E6C2399B4A60080576B /* 06-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "06-Input.txt"; sourceTree = "<group>"; };
@@ -133,6 +136,8 @@
 				3F6E5ECA23A189ED00B99C7C /* 12-Input.txt */,
 				3F0E027A23A4B9EB001A7ED1 /* 14-Day.swift */,
 				3F0E027B23A4B9EB001A7ED1 /* 14-Input.txt */,
+				3F81AFA623B4B7D3006D3882 /* 24-Day.swift */,
+				3F81AFA523B4B7D3006D3882 /* 24-Input.txt */,
 				3F6A0F2523929EA800F734B9 /* 2018-01-Day.swift */,
 				3F6A0F2B2392A56200F734B9 /* 2018-01-Input.txt */,
 				3F997956239E20D0006DB96B /* Computer.swift */,
@@ -171,7 +176,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1120;
-				LastUpgradeCheck = 1120;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = fbe;
 				TargetAttributes = {
 					3F6A0F1923929DD300F734B9 = {
@@ -213,6 +218,7 @@
 				3F6E5EC823A1652200B99C7C /* Direction.swift in Sources */,
 				3F0E027C23A4B9EC001A7ED1 /* 14-Day.swift in Sources */,
 				3FAABACF23A0BCEA00DD6E03 /* 11-Day.swift in Sources */,
+				3F81AFA723B4B7D3006D3882 /* 24-Day.swift in Sources */,
 				3F5EEF1A239B0E720015404B /* 07-Day.swift in Sources */,
 				3F6A0F2623929EA800F734B9 /* 2018-01-Day.swift in Sources */,
 				3F194A192396325700D1A1A3 /* 03-Day.swift in Sources */,
@@ -343,6 +349,7 @@
 		3F6A0F2223929DD300F734B9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J85Z25U8EM;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -354,6 +361,7 @@
 		3F6A0F2323929DD300F734B9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J85Z25U8EM;
 				ENABLE_HARDENED_RUNTIME = YES;
