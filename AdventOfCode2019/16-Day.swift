@@ -7,7 +7,9 @@ import Foundation
 enum Day16 {
     static func solve() {
         let input = Input.get("16-Input.txt")
+        print(Date())
         print("Result Day 16 - Part One: \(fftAfter100PhasesForPart1(input: input))")
+        print(Date())
         //        print("Result Day 16 - Part Two: \(findExactPositionInTimeForPart2(input: input))")
     }
 
@@ -28,43 +30,44 @@ enum Day16 {
 
 }
 
-extension Array where Element == Int {
+private extension Array where Element == Int {
+
     mutating func makeTransformation() {
-        let basePattern = [0, 1, 0, -1]
-
         var transformedNumbers: [Int] = []
-        for (lineIndex, _) in enumerated() {
-            // repeating based on index
-            // index 0: 0, 1, 0, -1
-            // index 1: 0, 0, 1, 1, 0, 0, -1, -1
-            // ...
-            var pattern: [Int] = []
-            while pattern.count < count + 1 {
-                pattern.append(contentsOf: Array(repeating: basePattern[0], count: lineIndex + 1))
-                pattern.append(contentsOf: Array(repeating: basePattern[1], count: lineIndex + 1))
-                pattern.append(contentsOf: Array(repeating: basePattern[2], count: lineIndex + 1))
-                pattern.append(contentsOf: Array(repeating: basePattern[3], count: lineIndex + 1))
-            }
 
+        for lineIndex in 0..<count {
             var transformed = 0
+
             for (index, element) in enumerated() {
-                // skip the first value once
-                if index == 0 {
-                    pattern = Array(pattern.dropFirst())
-                }
-
                 // 1. multiply value in array with pattern
-                let newValue = element * pattern.first!
-
                 // 2. adding up results
-                transformed += newValue
-
-                pattern = Array(pattern.dropFirst())
+                transformed += element * currentPattern(for: lineIndex, index: index)!
             }
+
             transformedNumbers.append(transformed.onesDigit)
         }
 
         self = transformedNumbers
+    }
+
+    func currentPattern(for lineIndex: Int, index: Int) -> Int? {
+        // repeating based on index
+        // index 0: 0, 1, 0, -1
+        // index 1: 0, 0, 1, 1, 0, 0, -1, -1
+        // ...
+
+        switch ((index + 1) / (lineIndex + 1)) % 4 {
+        case 0:
+            return 0
+        case 1:
+            return 1
+        case 2:
+            return 0
+        case 3:
+            return -1
+        default:
+            fatalError("Should not happen")
+        }
     }
 }
 
