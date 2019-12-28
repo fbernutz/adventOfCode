@@ -26,6 +26,7 @@
 		3F997953239D9ADC006DB96B /* 09-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F997952239D9ADC006DB96B /* 09-Day.swift */; };
 		3F997957239E20D0006DB96B /* Computer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F997956239E20D0006DB96B /* Computer.swift */; };
 		3FAABACF23A0BCEA00DD6E03 /* 11-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAABACD23A0BCE900DD6E03 /* 11-Day.swift */; };
+		3FBB15B823B772EE00EFBAC9 /* 13-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBB15B623B772EE00EFBAC9 /* 13-Day.swift */; };
 		3FCED5B8239C658F006EE248 /* 08-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCED5B7239C658F006EE248 /* 08-Day.swift */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,8 @@
 		3F997956239E20D0006DB96B /* Computer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Computer.swift; sourceTree = "<group>"; };
 		3FAABACD23A0BCE900DD6E03 /* 11-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "11-Day.swift"; sourceTree = "<group>"; };
 		3FAABACE23A0BCE900DD6E03 /* 11-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "11-Input.txt"; sourceTree = "<group>"; };
+		3FBB15B623B772EE00EFBAC9 /* 13-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "13-Day.swift"; sourceTree = "<group>"; };
+		3FBB15B723B772EE00EFBAC9 /* 13-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "13-Input.txt"; sourceTree = "<group>"; };
 		3FCED5B6239C658F006EE248 /* 08-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "08-Input.txt"; sourceTree = "<group>"; };
 		3FCED5B7239C658F006EE248 /* 08-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "08-Day.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,6 +137,8 @@
 				3FAABACE23A0BCE900DD6E03 /* 11-Input.txt */,
 				3F6E5EC923A189ED00B99C7C /* 12-Day.swift */,
 				3F6E5ECA23A189ED00B99C7C /* 12-Input.txt */,
+				3FBB15B623B772EE00EFBAC9 /* 13-Day.swift */,
+				3FBB15B723B772EE00EFBAC9 /* 13-Input.txt */,
 				3F0E027A23A4B9EB001A7ED1 /* 14-Day.swift */,
 				3F0E027B23A4B9EB001A7ED1 /* 14-Input.txt */,
 				3F81AFA623B4B7D3006D3882 /* 24-Day.swift */,
@@ -227,6 +232,7 @@
 				3F997953239D9ADC006DB96B /* 09-Day.swift in Sources */,
 				3F660B272393A0B3003DB18E /* 01-Day.swift in Sources */,
 				3F62495C239EF31A00812F8F /* 10-Day.swift in Sources */,
+				3FBB15B823B772EE00EFBAC9 /* 13-Day.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
