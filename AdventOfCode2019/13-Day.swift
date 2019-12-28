@@ -7,8 +7,8 @@ import Foundation
 enum Day13 {
     static func solve() {
         let input = Input.get("13-Input.txt")
-        print("Result Day 13 - Part One: \(numberOfBlockTilesForPart1(input: input))")
-//        print("Result Day 12 - Part Two: \(findExactPositionInTimeForPart2(input: input))")
+//        print("Result Day 13 - Part One: \(numberOfBlockTilesForPart1(input: input))")
+        print("Result Day 13 - Part Two: \(scoreForPart2(input: input))")
     }
 
     private static func numberOfBlockTilesForPart1(input: String) -> String {
@@ -43,6 +43,21 @@ enum Day13 {
         let numberOfTiles = tileIds.filter { $0 == 2 }.count
         assert(numberOfTiles == 230)
         return "\(numberOfTiles)"
+    }
+
+
+    private static func scoreForPart2(input: String) -> String {
+        /*
+         If the joystick is in the neutral position, provide 0.
+         If the joystick is tilted to the left, provide -1.
+         If the joystick is tilted to the right, provide 1.
+
+         When three output instructions specify X=-1, Y=0, the third output instruction is not a tile; the value instead specifies the new score to show in the segment display.
+
+         Free Playing: memory[0] = 2
+         */
+
+        return ""
     }
 
 }
