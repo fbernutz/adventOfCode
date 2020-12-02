@@ -6,4 +6,5 @@
 //  Copyright © 2019 fbe. All rights reserved.
 //
 
-Day01.solve()
+//Day01.solve()
+Day02.solve()
