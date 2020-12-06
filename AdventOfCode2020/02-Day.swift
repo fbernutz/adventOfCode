@@ -53,7 +53,7 @@ enum Day02 {
 	private static func getNumberOfValidPasswords(input: String) -> String {
 		// 1-3 a: abcde
 		let passwordPolicies = input.components(separatedBy: .newlines)
-			.dropLast()
+			.filter { !$0.isEmpty }
 			.map(PasswordPolicy.init)
 
 		let validPasswordCount = passwordPolicies
@@ -68,7 +68,7 @@ enum Day02 {
 	private static func getNumberOfValidPasswordsForNewPolicy(input: String) -> String {
 		// 1-3 a: abcde
 		let passwordPolicies = input.components(separatedBy: .newlines)
-			.dropLast()
+			.filter { !$0.isEmpty }
 			.map(PasswordPolicy.init)
 
 		let validPasswordCount = passwordPolicies
