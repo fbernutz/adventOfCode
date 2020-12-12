@@ -13,6 +13,7 @@
 		3F660B272393A0B3003DB18E /* 01-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F660B262393A0B3003DB18E /* 01-Day.swift */; };
 		3F6A0F1E23929DD300F734B9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A0F1D23929DD300F734B9 /* main.swift */; };
 		3F6A0F282392A25E00F734B9 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A0F272392A25E00F734B9 /* Input.swift */; };
+		3FB5678025855EEC00B8182E /* 04-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB5677F25855EEC00B8182E /* 04-Day.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,6 +39,8 @@
 		3F6A0F1A23929DD300F734B9 /* AdventOfCode2020 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AdventOfCode2020; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F6A0F1D23929DD300F734B9 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3F6A0F272392A25E00F734B9 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
+		3FB5677E25855EEC00B8182E /* 04-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "04-Input.txt"; sourceTree = "<group>"; };
+		3FB5677F25855EEC00B8182E /* 04-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "04-Day.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +80,8 @@
 				3F21643C257777A700F27700 /* 02-Input.txt */,
 				3F62A34B2578CA1D00A77C3C /* 03-Day.swift */,
 				3F62A34A2578CA1D00A77C3C /* 03-Input.txt */,
+				3FB5677F25855EEC00B8182E /* 04-Day.swift */,
+				3FB5677E25855EEC00B8182E /* 04-Input.txt */,
 				3F6A0F272392A25E00F734B9 /* Input.swift */,
 				3F6A0F1D23929DD300F734B9 /* main.swift */,
 				3F21644225777C1300F27700 /* String+Index.swift */,
@@ -145,6 +150,7 @@
 				3F6A0F282392A25E00F734B9 /* Input.swift in Sources */,
 				3F6A0F1E23929DD300F734B9 /* main.swift in Sources */,
 				3F660B272393A0B3003DB18E /* 01-Day.swift in Sources */,
+				3FB5678025855EEC00B8182E /* 04-Day.swift in Sources */,
 				3F21643E257777A700F27700 /* 02-Day.swift in Sources */,
 				3F62A34C2578CA1D00A77C3C /* 03-Day.swift in Sources */,
 				3F21644325777C1300F27700 /* String+Index.swift in Sources */,
