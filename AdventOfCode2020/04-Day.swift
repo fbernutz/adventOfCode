@@ -7,17 +7,17 @@ https://adventofcode.com/2020/day/4
 enum Day04 {
 	static func solve() {
 		let input = Input.get("04-Input.txt")
-		print("Result Day 4 - Part One: \(findValidPassports(for: input))")
-//		print("Result Day 4 - Part Two: \(getNumberOfTreesForDifferentSlopes(input: input))")
+		print("Result Day 4 - Part One: \(findValidPassportsPart1(for: input))")
+		print("Result Day 4 - Part Two: \(findValidPassportsPart2(for: input))")
 	}
 
-	private static func findValidPassports(for input: String) -> String {
+	private static func findValidPassportsPart1(for input: String) -> String {
 		let passports = input.components(separatedBy: "\n\n")
 			.filter { !$0.isEmpty }
 			.map { $0.replacingOccurrences(of: "\n", with: " ") }
 
 		let numberOfValidPassports = passports
-			.map { isValid(input: $0) }
+			.map { isValidPart1(input: $0) }
 			.filter { $0 == true }
 			.count
 
@@ -25,7 +25,21 @@ enum Day04 {
 		return String("\(numberOfValidPassports)")
 	}
 
-	private static func isValid(input: String) -> Bool {
+	private static func findValidPassportsPart2(for input: String) -> String {
+		let passports = input.components(separatedBy: "\n\n")
+			.filter { !$0.isEmpty }
+			.map { $0.replacingOccurrences(of: "\n", with: " ") }
+
+		let numberOfValidPassports = passports
+			.map { isValidPart2(input: $0) }
+			.filter { $0 == true }
+			.count
+
+		// 101
+		return String("\(numberOfValidPassports)")
+	}
+
+	private static func isValidPart1(input: String) -> Bool {
 		let validKeySet: Set<String> = [
 			"byr",
 			"iyr",
@@ -35,6 +49,27 @@ enum Day04 {
 			"ecl",
 			"pid",
 //			"cid"
+		]
+
+		let passportFields = input.split(separator: " ")
+			.compactMap { $0.split(separator: ":") }
+			.map { (key: String($0[0]), value: String($0[1])) }
+
+		let keys = passportFields.map { $0.key }
+		let validKeys = validKeySet.isSubset(of: Set(keys))
+		return validKeys
+	}
+
+	private static func isValidPart2(input: String) -> Bool {
+		let validKeySet: Set<String> = [
+			"byr",
+			"iyr",
+			"eyr",
+			"hgt",
+			"hcl",
+			"ecl",
+			"pid",
+			//			"cid"
 		]
 
 		let passportFields = input.split(separator: " ")
