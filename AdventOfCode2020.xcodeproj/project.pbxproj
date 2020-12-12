@@ -35,7 +35,7 @@
 		3F62A34B2578CA1D00A77C3C /* 03-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "03-Day.swift"; sourceTree = "<group>"; };
 		3F660B262393A0B3003DB18E /* 01-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "01-Day.swift"; sourceTree = "<group>"; };
 		3F660B282393A0C5003DB18E /* 01-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "01-Input.txt"; sourceTree = "<group>"; };
-		3F6A0F1A23929DD300F734B9 /* AdventOfCode2019 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AdventOfCode2019; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F6A0F1A23929DD300F734B9 /* AdventOfCode2020 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AdventOfCode2020; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F6A0F1D23929DD300F734B9 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3F6A0F272392A25E00F734B9 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,7 +63,7 @@
 		3F6A0F1B23929DD300F734B9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3F6A0F1A23929DD300F734B9 /* AdventOfCode2019 */,
+				3F6A0F1A23929DD300F734B9 /* AdventOfCode2020 */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -87,9 +87,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3F6A0F1923929DD300F734B9 /* AdventOfCode2019 */ = {
+		3F6A0F1923929DD300F734B9 /* AdventOfCode2020 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3F6A0F2123929DD300F734B9 /* Build configuration list for PBXNativeTarget "AdventOfCode2019" */;
+			buildConfigurationList = 3F6A0F2123929DD300F734B9 /* Build configuration list for PBXNativeTarget "AdventOfCode2020" */;
 			buildPhases = (
 				3F6A0F1623929DD300F734B9 /* Sources */,
 				3F6A0F1723929DD300F734B9 /* Frameworks */,
@@ -99,9 +99,9 @@
 			);
 			dependencies = (
 			);
-			name = AdventOfCode2019;
+			name = AdventOfCode2020;
 			productName = AdventOfCode2019;
-			productReference = 3F6A0F1A23929DD300F734B9 /* AdventOfCode2019 */;
+			productReference = 3F6A0F1A23929DD300F734B9 /* AdventOfCode2020 */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -132,7 +132,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3F6A0F1923929DD300F734B9 /* AdventOfCode2019 */,
+				3F6A0F1923929DD300F734B9 /* AdventOfCode2020 */,
 			);
 		};
 /* End PBXProject section */
@@ -303,7 +303,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3F6A0F2123929DD300F734B9 /* Build configuration list for PBXNativeTarget "AdventOfCode2019" */ = {
+		3F6A0F2123929DD300F734B9 /* Build configuration list for PBXNativeTarget "AdventOfCode2020" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3F6A0F2223929DD300F734B9 /* Debug */,
