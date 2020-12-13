@@ -47,32 +47,49 @@ enum Day13 {
 		let firstBusId = Int(busIds[0])!
 		var currentTimestamp = firstBusId
 
+		let sorted = busIds
+			.filter { $0 != "x"}
+			.compactMap(Int.init)
+			.sorted(by: >)
+		let highestNumber = sorted[0]
+		let secondHighestNumber = sorted[1]
+
+		let indexForHighestNumber = busIds.firstIndex(of: "\(highestNumber)")! as Int
+		let indexFor2ndHighestNumber = busIds.firstIndex(of: "\(secondHighestNumber)")! as Int
+		let enumeratedWithoutX = busIds.enumerated()
+			.filter { (index, element) in element != "x" }
+
 		// check other busses
-		while !otherBussesAreValid(busIds, currentTimestamp: currentTimestamp) {
+		while !checkBusses(
+			enumeratedWithoutX,
+			currentTimestamp: currentTimestamp,
+			indexForHighestNumber: indexForHighestNumber,
+			highestNumber: highestNumber,
+			indexFor2ndHighestNumber: indexFor2ndHighestNumber,
+			secondHighestNumber: secondHighestNumber
+		) {
 			currentTimestamp += firstBusId
 		}
 
 		return String("\(currentTimestamp)")
 	}
 
-	private static func otherBussesAreValid(_ busIds: [String], currentTimestamp: Int) -> Bool {
-		var currentTime = currentTimestamp
+	private static func checkBusses(_ busWithIndex: [EnumeratedSequence<[String]>.Element], currentTimestamp: Int, indexForHighestNumber: Int, highestNumber: Int, indexFor2ndHighestNumber: Int, secondHighestNumber: Int) -> Bool {
 
-		for busId in busIds {
-			if busId == "x" {
-				// always valid
-				currentTime += 1
-				continue
-			} else if currentTime % Int(busId)! != 0 {
-				// invalid, test failed
-				return false
-			} else {
-				// valid bus, check next
-				currentTime += 1
-			}
+		// check highest number first, for early exit
+		guard (currentTimestamp + indexForHighestNumber) % highestNumber == 0 else {
+			return false
 		}
 
-		return true
+		// check 2nd highest number first, for early exit
+		guard (currentTimestamp + indexFor2ndHighestNumber) % secondHighestNumber == 0 else {
+			return false
+		}
+
+		let noInvalidBusses = busWithIndex
+			.filter { (index, element) in (currentTimestamp + index) % Int(element)! != 0 }
+			.isEmpty
+		return noInvalidBusses
 	}
 
 	private static func getBusIds(for input: String) -> [String] {
