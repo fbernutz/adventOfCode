@@ -45,7 +45,9 @@ enum Day13 {
 
 		// set timestamp to first bus id after 0
 		let firstBusId = Int(busIds[0])!
-		var currentTimestamp = firstBusId
+
+		let minimumTimestamp = 100000000000000
+		var currentTimestamp = minimumTimestamp / firstBusId * firstBusId
 
 		let sorted = busIds
 			.filter { $0 != "x"}
@@ -88,10 +90,14 @@ enum Day13 {
 			return false
 		}
 
-		let noInvalidBusses = busWithIndex
-			.filter { (currentTimestamp + $0.offset) % Int($0.element)! != 0 }
-			.isEmpty
-		return noInvalidBusses
+		for (index, bus) in busWithIndex {
+			guard (currentTimestamp + index) % Int(bus)! == 0 else {
+				// exit early when one bus is invalid
+				return false
+			}
+		}
+		// all busses are valid
+		return true
 	}
 
 	private static func getBusIds(for input: String) -> [String] {
