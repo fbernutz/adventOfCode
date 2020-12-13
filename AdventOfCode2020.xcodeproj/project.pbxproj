@@ -14,6 +14,7 @@
 		3F6A0F1E23929DD300F734B9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A0F1D23929DD300F734B9 /* main.swift */; };
 		3F6A0F282392A25E00F734B9 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A0F272392A25E00F734B9 /* Input.swift */; };
 		3FB5678025855EEC00B8182E /* 04-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB5677F25855EEC00B8182E /* 04-Day.swift */; };
+		3FB567872586099C00B8182E /* 13-Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB567852586099C00B8182E /* 13-Day.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,6 +42,8 @@
 		3F6A0F272392A25E00F734B9 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
 		3FB5677E25855EEC00B8182E /* 04-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "04-Input.txt"; sourceTree = "<group>"; };
 		3FB5677F25855EEC00B8182E /* 04-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "04-Day.swift"; sourceTree = "<group>"; };
+		3FB567852586099C00B8182E /* 13-Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "13-Day.swift"; sourceTree = "<group>"; };
+		3FB567862586099C00B8182E /* 13-Input.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "13-Input.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +85,8 @@
 				3F62A34A2578CA1D00A77C3C /* 03-Input.txt */,
 				3FB5677F25855EEC00B8182E /* 04-Day.swift */,
 				3FB5677E25855EEC00B8182E /* 04-Input.txt */,
+				3FB567852586099C00B8182E /* 13-Day.swift */,
+				3FB567862586099C00B8182E /* 13-Input.txt */,
 				3F6A0F272392A25E00F734B9 /* Input.swift */,
 				3F6A0F1D23929DD300F734B9 /* main.swift */,
 				3F21644225777C1300F27700 /* String+Index.swift */,
@@ -153,6 +158,7 @@
 				3FB5678025855EEC00B8182E /* 04-Day.swift in Sources */,
 				3F21643E257777A700F27700 /* 02-Day.swift in Sources */,
 				3F62A34C2578CA1D00A77C3C /* 03-Day.swift in Sources */,
+				3FB567872586099C00B8182E /* 13-Day.swift in Sources */,
 				3F21644325777C1300F27700 /* String+Index.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
