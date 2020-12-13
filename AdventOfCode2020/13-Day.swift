@@ -55,7 +55,7 @@ enum Day13 {
 		let secondHighestNumber = sorted[1]
 
 		let indexForHighestNumber = busIds.firstIndex(of: "\(highestNumber)")! as Int
-		let indexFor2ndHighestNumber = busIds.firstIndex(of: "\(secondHighestNumber)")! as Int
+		let indexForSecondHighestNumber = busIds.firstIndex(of: "\(secondHighestNumber)")! as Int
 		let enumeratedWithoutX = busIds.enumerated()
 			.filter { (index, element) in element != "x" }
 
@@ -65,7 +65,7 @@ enum Day13 {
 			currentTimestamp: currentTimestamp,
 			indexForHighestNumber: indexForHighestNumber,
 			highestNumber: highestNumber,
-			indexFor2ndHighestNumber: indexFor2ndHighestNumber,
+			indexForSecondHighestNumber: indexForSecondHighestNumber,
 			secondHighestNumber: secondHighestNumber
 		) {
 			currentTimestamp += firstBusId
@@ -74,7 +74,7 @@ enum Day13 {
 		return String("\(currentTimestamp)")
 	}
 
-	private static func checkBusses(_ busWithIndex: [EnumeratedSequence<[String]>.Element], currentTimestamp: Int, indexForHighestNumber: Int, highestNumber: Int, indexFor2ndHighestNumber: Int, secondHighestNumber: Int) -> Bool {
+	private static func checkBusses(_ busWithIndex: [EnumeratedSequence<[String]>.Element], currentTimestamp: Int, indexForHighestNumber: Int, highestNumber: Int, indexForSecondHighestNumber: Int, secondHighestNumber: Int) -> Bool {
 
 		// check highest number first, for early exit
 		guard (currentTimestamp + indexForHighestNumber) % highestNumber == 0 else {
@@ -82,7 +82,7 @@ enum Day13 {
 		}
 
 		// check 2nd highest number first, for early exit
-		guard (currentTimestamp + indexFor2ndHighestNumber) % secondHighestNumber == 0 else {
+		guard (currentTimestamp + indexForSecondHighestNumber) % secondHighestNumber == 0 else {
 			return false
 		}
 
