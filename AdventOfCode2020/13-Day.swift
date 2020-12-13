@@ -75,6 +75,8 @@ enum Day13 {
 			currentTimestamp += firstBusId
 		}
 
+		// TODO: still no result after 2 hours ;)
+
 		return String("\(currentTimestamp)")
 	}
 
