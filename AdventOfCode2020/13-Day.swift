@@ -57,7 +57,9 @@ enum Day13 {
 		let indexForHighestNumber = busIds.firstIndex(of: "\(highestNumber)")! as Int
 		let indexForSecondHighestNumber = busIds.firstIndex(of: "\(secondHighestNumber)")! as Int
 		let enumeratedWithoutX = busIds.enumerated()
-			.filter { (index, element) in element != "x" }
+			.filter { $0.element != "x" }
+			.filter { $0.element != "\(highestNumber)" }
+			.filter { $0.element != "\(secondHighestNumber)" }
 
 		// check other busses
 		while !checkBusses(
@@ -87,7 +89,7 @@ enum Day13 {
 		}
 
 		let noInvalidBusses = busWithIndex
-			.filter { (index, element) in (currentTimestamp + index) % Int(element)! != 0 }
+			.filter { (currentTimestamp + $0.offset) % Int($0.element)! != 0 }
 			.isEmpty
 		return noInvalidBusses
 	}
